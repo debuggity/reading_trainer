@@ -47,7 +47,9 @@ function startRound() {
         return;
     }
 
+    // Increment the index to show the next passage
     currentTextIndex = (currentTextIndex + 1) % comprehensionData.length;
+
     let textPassage = comprehensionData[currentTextIndex].passage;
 
     document.getElementById('textPassage').innerText = textPassage;
