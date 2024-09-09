@@ -1,0 +1,39 @@
+The quick brown fox jumps over the lazy dog. It leaps gracefully, its brown fur glistening in the sun. The dog, meanwhile, doesn't move an inch.|black 
+All their equipment and instruments are alive. This is not a typical lab; here, gadgets and tools have their own consciousness. Even the smallest screwdriver seems to think on its own.|hammer 
+A rare white Bengal tiger was spotted in the jungle. It moved silently among the trees, its white fur a stark contrast to the green foliage. Observers were left in awe of its majestic beauty.|orange 
+The sun sets in the west every evening. Its orange glow paints the sky with warm colors. The sight is especially breathtaking over the ocean.|east 
+Neil Armstrong was the first person to walk on the moon. His famous words echoed around the world as he stepped onto the lunar surface. It was a giant leap for mankind.|Buzz 
+Mount Everest is the highest mountain in the world. Towering above the clouds, it challenges climbers with its icy slopes. Many have dared to conquer its peak, but few have succeeded.|river 
+The Great Wall of China is visible from space. This ancient structure stretches across thousands of miles. It stands as a testament to human ingenuity and perseverance.|pyramid 
+The book on the table is about ancient Rome. It covers the rise and fall of the Roman Empire. Stories of gladiators, emperors, and ancient wars fill its pages.|Greece 
+Hummingbirds can hover in mid-air thanks to their rapid wing flaps. They are able to stay perfectly still as they sip nectar from flowers. This remarkable ability sets them apart from other birds.|Eagles 
+The Pacific Ocean is the largest ocean on Earth. It covers more area than all the landmasses combined. Its vast waters are home to a myriad of marine life.|Atlantic 
+Brazil is the largest country in South America. It is known for its vast Amazon rainforest and vibrant cultural festivals. The country's diverse landscape attracts visitors from all over the world.|Argentina 
+The Eiffel Tower is located in Paris. This iconic landmark towers over the city, offering breathtaking views. It's a symbol of French engineering and a must-see for tourists.|London 
+The Pyramids of Giza were built by the ancient Egyptians. These monumental structures have stood for thousands of years. They serve as a reminder of Egypt's powerful past.|Romans 
+The Mona Lisa was painted by Leonardo da Vinci. This enigmatic portrait is renowned for its mysterious smile. It's one of the most famous artworks in the world.|Michelangelo 
+Mercury is the closest planet to the sun. It completes an orbit faster than any other planet. Its surface is scarred by craters and extremely high temperatures.|Venus 
+Venus is known for its harsh surface conditions. It's shrouded in thick clouds of sulfuric acid. The planet is often referred to as Earth's 'sister planet' due to its similar size.|rings
+The Amazon Rainforest is a vast tropical jungle. It spans across several countries in South America. This rainforest is home to a staggering variety of plants and animals.|desert
+The city of Venice is famous for its canals. It's located in the northeastern part of Italy. These waterways are used for transportation around the city.|France
+The Grand Canyon is a massive canyon carved by the Colorado River. It's known for its visually overwhelming size and its intricate and colorful landscape. Millions of tourists visit this natural wonder every year.|glacier
+Albert Einstein was a theoretical physicist. He developed the theory of relativity, one of the two pillars of modern physics. His work also led to the development of atomic energy.|gravity
+Kangaroos are native to Australia. They are known for their powerful hind legs and large tails. These marsupials can leap great distances.|Africa
+The Sahara is the largest hot desert in the world. It's located in North Africa. The desert covers a vast area, larger than the United States.|forest
+The Statue of Liberty was a gift from France to the United States. It is located in New York Harbor. The statue is a symbol of freedom and democracy.|England
+The Great Barrier Reef is the world's largest coral reef system. It is located off the coast of Queensland, Australia. This reef is visible from outer space.|Brazil
+Pandas are known for their distinct black-and-white coloring. They primarily eat bamboo. These bears are native to China.|fish
+Shakespeare was a renowned English playwright and poet. He is often called England's national poet. His plays include 'Romeo and Juliet' and 'Hamlet'.|French
+The Great Sphinx of Giza is a large statue in Egypt. It features the body of a lion and the head of a human. It's one of the oldest and largest statues in the world.|horse
+The Northern Lights, or Aurora Borealis, are a natural light display. They are predominantly seen in high-latitude regions around the Arctic and Antarctic. This phenomenon is caused by disturbances in the magnetosphere.|ozone
+The Great Pyramid of Giza was built as a tomb for Pharaoh Khufu. It is the oldest of the Seven Wonders of the Ancient World. The pyramid is located in Egypt.|Tutankhamun
+The Nile River is the longest river in the world. It flows through northeastern Africa. The river is a major north-flowing river in Africa.|Asia
+The International Space Station orbits the Earth. It serves as a home where astronauts live and work. The ISS is a joint project among several space agencies.|Mars
+The Mona Lisa is displayed in the Louvre Museum in Paris. This world-famous painting is known for its enigmatic smile. It was painted by Leonardo da Vinci.|Van Gogh
+The Grand Canyon is located in Arizona, USA. It is renowned for its massive size and its intricate and colorful landscape. The canyon is one of the most famous natural wonders in the world.|volcano
+Thomas Edison was an American inventor. He is best known for inventing the electric light bulb. Edison holds 1,093 US patents in his name.|telephone
+Mount Kilimanjaro is the highest mountain in Africa. It is a dormant volcano in Tanzania. It has three volcanic cones: Kibo, Mawenzi, and Shira.|Everest
+The Great Wall of China is one of the world's most famous structures. It was built over several centuries to protect against invasions. The wall stretches over 21,000 kilometers.|Berlin
+The Amazon River is one of the largest rivers in the world by discharge. It flows through the Amazon rainforest. The river is about 6,575 kilometers (4,086 miles) long.|Nile
+Stonehenge is a prehistoric monument in England. It consists of a ring of standing stones. Its construction is estimated to have been around 3000 BC to 2000 BC.|pyramids
+The Taj Mahal is located in Agra, India. It is a mausoleum built by Mughal Emperor Shah Jahan in memory of his wife Mumtaz Mahal. The Taj Mahal is made of white marble.|library

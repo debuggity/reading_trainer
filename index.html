@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Speed Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: #3a7bd5;
+        }
+        #textPassage {
+            display: none;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            text-align: left;
+        }
+        #results {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .answerLabel {
+            display: inline-block;
+            background: #f2f2f2;
+            color: #333;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            border: 2px solid #d1d1d1;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .answerLabel:hover {
+            background: #e1e1e1;
+            border-color: #b1b1b1;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked + .answerLabel {
+            background: #4a90e2;
+            color: white;
+            border-color: #4a90e2;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .popup-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Additional styles for input range */
+        input[type=range] {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        #settingsButton {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 2; /* Ensure it's above other elements */
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Reading Speed Test</h1>
+
+    <!-- Settings Button -->
+    <button id="settingsButton">Settings</button>
+
+    <!-- Settings Pop-Up -->
+    <div id="settingsPopup" class="popup">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>Settings</h2>
+            <label for="fontSize">Font Size:</label>
+            <input type="range" id="fontSize" min="12" max="24" value="16">
+            <p>Sample text:</p>
+            <div id="sampleText" style="border: 1px solid #ccc; padding: 10px; margin-top: 5px;">
+                The quick brown fox jumps over the lazy dog.
+            </div>
+            <button id="applySettings">Apply</button>
+        </div>
+    </div>
+
+
+    <button id="startButton">Start Round</button>
+    <div id="textPassage"></div>
+    <button id="finishButton" style="display:none;">Finished Reading</button>
+    
+    <div id="comprehensionQuestion" style="display:none;">
+        <p id="questionText"></p>
+        <div id="answerOptions"></div>
+        <button id="submitAnswer">Submit Answer</button>
+    </div>
+
+    <div id="results"></div>
+    <script src="script.js"></script>
+</body>
+</html>
