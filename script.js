@@ -13,14 +13,21 @@ function loadComprehensionData() {
     return fetch('comprehensionData.txt') // Make sure the file is located in the same directory as the HTML file
         .then(response => response.text())
         .then(text => {
-            // Split the text by double newlines to get each passage-decoy pair
-            const entries = text.split('\n\n');
-            
-            // For each entry, split by the pipe to separate passage and decoy
+            // Split the text by two or more newlines to get each passage-decoy pair
+            const entries = text.split(/\n{2,}/); // Use a regular expression to handle multiple newlines
+
             comprehensionData = entries.map(entry => {
-                const [passage, decoy] = entry.split('|');
-                return { passage: passage.trim(), decoy: decoy.trim() };
-            });
+                // Trim each entry to remove excess spaces/newlines and split by the pipe
+                const parts = entry.split('|').map(part => part.trim());
+
+                // Check if we have both a passage and a decoy
+                if (parts.length === 2) {
+                    return { passage: parts[0], decoy: parts[1] };
+                } else {
+                    console.error('Invalid data format:', entry);
+                    return null;
+                }
+            }).filter(item => item !== null); // Filter out any invalid entries
 
             // Shuffle the data after loading
             shuffleArray(comprehensionData);
@@ -31,6 +38,7 @@ function loadComprehensionData() {
             console.error("Error loading comprehension data:", error);
         });
 }
+
 
 const stopWords = new Set([ /* Stop words here */ ]);
 
