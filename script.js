@@ -56,7 +56,13 @@ function startRound() {
     }
 
     // Increment the index to show the next passage
-    currentTextIndex = (currentTextIndex + 1) % comprehensionData.length;
+    currentTextIndex++;
+    console.log(currentTextIndex);
+    
+    // Wrap around to the beginning of the data if we've reached the end
+    if (currentTextIndex >= comprehensionData.length) {
+        currentTextIndex = 0;
+    }
 
     let textPassage = comprehensionData[currentTextIndex].passage;
 
