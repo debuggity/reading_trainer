@@ -11,13 +11,21 @@ let comprehensionData = []; // Initially empty, will be populated from the file
 // Function to load the comprehension data from the text file
 function loadComprehensionData() {
     return fetch('comprehensionData.txt') // Make sure the file is located in the same directory as the HTML file
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.text();
+        })
         .then(text => {
+            // Normalize line endings to just '\n' to handle both Windows and Unix-style endings
+            const normalizedText = text.replace(/\r\n/g, '\n').trim();
+
             // Split the text by two or more newlines to get each passage-decoy pair
-            const entries = text.split(/\n{2,}/); // Use a regular expression to handle multiple newlines
+            const entries = normalizedText.split(/\n{2,}/); // Handle multiple newlines
 
             comprehensionData = entries.map(entry => {
-                // Trim each entry to remove excess spaces/newlines and split by the pipe
+                // Trim each entry and split by the pipe '|'
                 const parts = entry.split('|').map(part => part.trim());
 
                 // Check if we have both a passage and a decoy
@@ -29,15 +37,19 @@ function loadComprehensionData() {
                 }
             }).filter(item => item !== null); // Filter out any invalid entries
 
-            // Shuffle the data after loading
-            shuffleArray(comprehensionData);
-
             console.log("Loaded comprehension data:", comprehensionData);
+
+            if (comprehensionData.length > 0) {
+                shuffleArray(comprehensionData); // Shuffle the data after loading
+            } else {
+                console.error("No comprehension data loaded.");
+            }
         })
         .catch(error => {
             console.error("Error loading comprehension data:", error);
         });
 }
+
 
 
 const stopWords = new Set([ /* Stop words here */ ]);
