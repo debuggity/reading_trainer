@@ -95,16 +95,27 @@ function highlightWordsAtReadingSpeed(words, averageSpeedWPM) {
     
     const trailColor = document.getElementById('trailColor').value; // Get the selected color
 
+    // Clear any previous highlighting (optional, depending on use case)
+    document.getElementById('textPassage').innerHTML = words.join(' ');
+
     const intervalId = setInterval(() => {
         if (wordIndex < words.length) {
-            words[wordIndex] = `<span style="color: ${trailColor};">${words[wordIndex]}</span>`;
-            document.getElementById('textPassage').innerHTML = words.join(' ');
+            const wordSpans = document.getElementById('textPassage').getElementsByTagName('span');
+
+            // Un-highlight the previous word, if any
+            if (wordIndex > 0) {
+                wordSpans[wordIndex - 1].style.color = '';
+            }
+
+            // Highlight the current word
+            wordSpans[wordIndex].style.color = trailColor;
             wordIndex++;
         } else {
             clearInterval(intervalId); // Stop the interval when all words are highlighted
         }
     }, intervalTime);
 }
+
 
 function finishReading() {
     const endTime = new Date();
