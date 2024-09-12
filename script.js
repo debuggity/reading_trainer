@@ -114,48 +114,16 @@ function highlightWordsAtReadingSpeed(words, averageSpeedWPM) {
     const intervalTime = (60 / averageSpeedWPM) * 1000; // Time per word in milliseconds
     let wordIndex = 0;
 
-    const trailColor = document.getElementById('trailColor').value; // Get the selected color
-
-    // Wrap each word in a span, ensuring only words (not empty strings or spaces) are wrapped
-    const wrappedWords = words.map(word => {
-        if (word.trim()) { // Only wrap non-empty words
-            return `<span>${word}</span>`;
-        } else {
-            return word; // Return space as is
-        }
-    }).join(' ');
-
-    // Update the content of #textPassage
-    document.getElementById('textPassage').innerHTML = wrappedWords;
-
-    // Get all spans in #textPassage
-    const wordSpans = document.getElementById('textPassage').getElementsByTagName('span');
-
-    // Debugging: Check the length of spans and words to ensure consistency
-    console.log('Word spans:', wordSpans.length);
-    console.log('Words array:', words.length);
-
     const intervalId = setInterval(() => {
-        if (wordIndex < wordSpans.length) {
-            // Un-highlight the previous word, if any
-            if (wordIndex > 0 && wordSpans[wordIndex - 1]) {
-                wordSpans[wordIndex - 1].style.color = ''; // Reset color
-            }
-
-            // Highlight the current word
-            if (wordSpans[wordIndex]) {
-                wordSpans[wordIndex].style.color = trailColor;
-            } else {
-                console.error('Undefined word span at index:', wordIndex); // Debugging: Check for undefined spans
-            }
-
+        if (wordIndex < words.length) {
+            words[wordIndex] = `<span style="color: green;">${words[wordIndex]}</span>`;
+            document.getElementById('textPassage').innerHTML = words.join(' ');
             wordIndex++;
         } else {
             clearInterval(intervalId); // Stop the interval when all words are highlighted
         }
     }, intervalTime);
 }
-
 
 function finishReading() {
     const endTime = new Date();
