@@ -205,9 +205,9 @@ async function showComprehensionQuestion() {
         
         synonyms = response.synonyms.filter(syn => syn !== randomWord && !wordsInPassage.includes(syn));
         attempts++;
-    } while (synonyms.length < 3);
+    } while (synonyms.length < 4);
 
-    const options = [randomWord, cleanWord(synonyms[0]), cleanWord(synonyms[1])];
+    const options = [randomWord, cleanWord(synonyms[0]), cleanWord(synonyms[1]), cleanWord(synonyms[2])];
 
     options.sort(() => Math.random() - 0.5); // Shuffle options
 
