@@ -113,30 +113,37 @@ function startRound() {
 function highlightWordsAtReadingSpeed(words, averageSpeedWPM) {
     const intervalTime = (60 / averageSpeedWPM) * 1000; // Time per word in milliseconds
     let wordIndex = 0;
-    
+
     const trailColor = document.getElementById('trailColor').value; // Get the selected color
 
-    // Clear any previous highlighting (optional, depending on use case)
-    document.getElementById('textPassage').innerHTML = words.join(' ');
+    // Wrap each word in a span and account for spaces and punctuation
+    const wrappedWords = words.map(word => {
+        // Make sure to wrap only the actual words in span, leave spaces/punctuation as is
+        if (word.trim() === "") return word; // Keep spaces as they are
+        return `<span>${word}</span>`;
+    }).join(' ');
+
+    document.getElementById('textPassage').innerHTML = wrappedWords;
+
+    const wordSpans = document.getElementById('textPassage').getElementsByTagName('span');
 
     const intervalId = setInterval(() => {
-        if (wordIndex < words.length) {
-            const wordSpans = document.getElementById('textPassage').getElementsByTagName('span');
-
+        if (wordIndex < wordSpans.length) {
             // Un-highlight the previous word, if any
             if (wordIndex > 0) {
                 wordSpans[wordIndex - 1].style.color = '';
             }
 
             // Highlight the current word
-            wordSpans[wordIndex].style.color = trailColor;
+            if (wordSpans[wordIndex]) {
+                wordSpans[wordIndex].style.color = trailColor;
+            }
             wordIndex++;
         } else {
             clearInterval(intervalId); // Stop the interval when all words are highlighted
         }
     }, intervalTime);
 }
-
 
 function finishReading() {
     const endTime = new Date();
