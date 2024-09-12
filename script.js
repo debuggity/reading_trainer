@@ -50,9 +50,30 @@ function loadComprehensionData() {
         });
 }
 
-
-
-const stopWords = new Set([ /* Stop words here */ ]);
+const stopWords = new Set([
+    "the", "in", "of", "to", "and", "a", "an", "is", "it", "for", "on", "with", "as", "at", "this",
+    "but", "by", "or", "from", "are", "that", "be", "was", "were", "if", "they", "will", "their",
+    "he", "she", "have", "has", "had", "do", "does", "did", "you", "your", "we", "our", "us",
+    // Existing words
+    "her", "him", "its", "can", "could", "would", "should", "may", "might", "must", "about", "above",
+    "after", "against", "along", "among", "around", "before", "below", "beneath", "beside", "between",
+    "beyond", "during", "except", "inside", "into", "near", "outside", "over", "through", "throughout",
+    "under", "until", "upon", "within", "without", "these", "those", "which", "what", "who", "whom",
+    "whose", "why", "how", "where", "when", "all", "any", "both", "each", "few", "many", "most", "some",
+    "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "just", "one",
+    "every", "theirs", "my", "mine", "yours", "his", "hers", "its", "ours", "yours", "theirs", "here",
+    "there", "again", "further", "once", "then", "quite",
+    // Add more stop words as needed
+    "amongst", "around", "because", "been", "beforehand", "below", "besides", "beyond", "both", "brief",
+    "else", "elsewhere", "enough", "etc", "even", "ever", "everywhere", "except", "few", "further",
+    "hence", "hereafter", "hereby", "herein", "hereupon", "however", "indeed", "instead", "latter",
+    "latterly", "less", "lest", "meanwhile", "moreover", "namely", "nearby", "neither", "nevertheless",
+    "none", "nonetheless", "notwithstanding", "otherwise", "perhaps", "rather", "since", "someday",
+    "sometimes", "somewhat", "somewhere", "soon", "thereafter", "thereby", "therefore", "therein",
+    "thereupon", "though", "thus", "together", "towards", "unless", "unto", "upon", "usually", "whatever",
+    "whenever", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "whither", "within",
+    "without", "yet"
+]);
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
