@@ -145,12 +145,17 @@
         <div class="popup-content">
             <span class="close">&times;</span>
             <h2>Settings</h2>
+
+            <label for="trailColor">Reading Trail Color:</label>
+            <input type="color" id="trailColor" value="#00ff00">
+
             <label for="fontSize">Font Size:</label>
             <input type="range" id="fontSize" min="12" max="24" value="16">
             <p>Sample text:</p>
             <div id="sampleText" style="border: 1px solid #ccc; padding: 10px; margin-top: 5px;">
                 The quick brown fox jumps over the lazy dog.
             </div>
+
             <button id="applySettings">Apply</button>
         </div>
     </div>

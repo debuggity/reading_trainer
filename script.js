@@ -92,10 +92,12 @@ function startRound() {
 function highlightWordsAtReadingSpeed(words, averageSpeedWPM) {
     const intervalTime = (60 / averageSpeedWPM) * 1000; // Time per word in milliseconds
     let wordIndex = 0;
+    
+    const trailColor = document.getElementById('trailColor').value; // Get the selected color
 
     const intervalId = setInterval(() => {
         if (wordIndex < words.length) {
-            words[wordIndex] = `<span style="color: green;">${words[wordIndex]}</span>`;
+            words[wordIndex] = `<span style="color: ${trailColor};">${words[wordIndex]}</span>`;
             document.getElementById('textPassage').innerHTML = words.join(' ');
             wordIndex++;
         } else {
@@ -192,6 +194,11 @@ async function showComprehensionQuestion() {
 
     const optionsContainer = document.getElementById('answerOptions');
     optionsContainer.innerHTML = '';
+
+    // Add explanation text
+    const instructionText = document.createElement('p');
+    instructionText.textContent = "Pick the word that was in the sentence you just read.";
+    optionsContainer.appendChild(instructionText);
 
     options.forEach((option, index) => {
         const optionInput = document.createElement('input');
