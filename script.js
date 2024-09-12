@@ -116,34 +116,46 @@ function highlightWordsAtReadingSpeed(words, averageSpeedWPM) {
 
     const trailColor = document.getElementById('trailColor').value; // Get the selected color
 
-    // Wrap each word in a span and account for spaces and punctuation
+    // Wrap each word in a span, ensuring only words (not empty strings or spaces) are wrapped
     const wrappedWords = words.map(word => {
-        // Make sure to wrap only the actual words in span, leave spaces/punctuation as is
-        if (word.trim() === "") return word; // Keep spaces as they are
-        return `<span>${word}</span>`;
+        if (word.trim()) { // Only wrap non-empty words
+            return `<span>${word}</span>`;
+        } else {
+            return word; // Return space as is
+        }
     }).join(' ');
 
+    // Update the content of #textPassage
     document.getElementById('textPassage').innerHTML = wrappedWords;
 
+    // Get all spans in #textPassage
     const wordSpans = document.getElementById('textPassage').getElementsByTagName('span');
+
+    // Debugging: Check the length of spans and words to ensure consistency
+    console.log('Word spans:', wordSpans.length);
+    console.log('Words array:', words.length);
 
     const intervalId = setInterval(() => {
         if (wordIndex < wordSpans.length) {
             // Un-highlight the previous word, if any
-            if (wordIndex > 0) {
-                wordSpans[wordIndex - 1].style.color = '';
+            if (wordIndex > 0 && wordSpans[wordIndex - 1]) {
+                wordSpans[wordIndex - 1].style.color = ''; // Reset color
             }
 
             // Highlight the current word
             if (wordSpans[wordIndex]) {
                 wordSpans[wordIndex].style.color = trailColor;
+            } else {
+                console.error('Undefined word span at index:', wordIndex); // Debugging: Check for undefined spans
             }
+
             wordIndex++;
         } else {
             clearInterval(intervalId); // Stop the interval when all words are highlighted
         }
     }, intervalTime);
 }
+
 
 function finishReading() {
     const endTime = new Date();
