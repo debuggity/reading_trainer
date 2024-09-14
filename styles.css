@@ -88,8 +88,12 @@ button:hover {
 
 /* Comprehension Question */
 #comprehensionQuestion {
-    display: none;
-    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Ensures the text is centered */
+    margin: 20px auto; /* Centers the section horizontally */
     padding: 30px;
     background-color: #fdfdfd;
     border-radius: 8px;
@@ -97,6 +101,7 @@ button:hover {
     max-width: 800px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+
 #comprehensionQuestion p {
     margin-bottom: 20px;
     font-size: 18px;
@@ -178,6 +183,36 @@ footer a {
 footer a:hover {
     color: #2980b9;
 }
+
+/* Styling the Font Size Slider */
+#fontSize {
+    width: 100%; /* Make the slider fill the modal's width */
+    margin: 20px 0; /* Add some margin to give space around the slider */
+    height: 8px; /* Increase the height for a better look */
+    background-color: #ecf0f1; /* Add a background color */
+    border-radius: 5px; /* Smoothen the edges */
+    outline: none;
+    appearance: none; /* Remove default styling */
+}
+
+/* Customizing the slider thumb */
+#fontSize::-webkit-slider-thumb {
+    width: 20px; /* Make the thumb larger */
+    height: 20px;
+    background-color: #3498db; /* Thumb color */
+    border-radius: 50%; /* Make the thumb circular */
+    cursor: pointer;
+    appearance: none;
+}
+
+#fontSize::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #3498db;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 
 /* Media Queries */
 @media (max-width: 768px) {
