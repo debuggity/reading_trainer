@@ -273,6 +273,36 @@ function submitComprehensionAnswer() {
     document.getElementById('startButton').style.display = 'inline';
 }
 
+// Modal functionality for Features
+document.getElementById('openFeatures').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('featuresModal').style.display = 'block';
+});
+
+document.getElementById('closeFeatures').addEventListener('click', function() {
+    document.getElementById('featuresModal').style.display = 'none';
+});
+
+// Modal functionality for About
+document.getElementById('openAbout').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('aboutModal').style.display = 'block';
+});
+
+document.getElementById('closeAbout').addEventListener('click', function() {
+    document.getElementById('aboutModal').style.display = 'none';
+});
+
+// Close modals when clicking outside of them
+window.onclick = function(event) {
+    if (event.target == document.getElementById('featuresModal')) {
+        document.getElementById('featuresModal').style.display = 'none';
+    }
+    if (event.target == document.getElementById('aboutModal')) {
+        document.getElementById('aboutModal').style.display = 'none';
+    }
+}
+
 document.getElementById('settingsButton').addEventListener('click', function() {
     document.getElementById('settingsPopup').style.display = 'block';
 });
