@@ -76,19 +76,13 @@ Stonehenge is a prehistoric monument in England. It consists of a ring of standi
 
 The Taj Mahal is located in Agra, India. It is a mausoleum built by Mughal Emperor Shah Jahan in memory of his wife Mumtaz Mahal. The Taj Mahal is made of white marble.|library
 
-There is some good in this world, and it’s worth fighting for. Even the smallest person can change the course of the future.|mountain
-
-All men must die, but we are not men. The future is dark and full of terrors, but we will face it together.|sword
-
-The things you own end up owning you. It's only after you’ve lost everything that you’re free to do anything.|whisper
-
 The world breaks everyone, and afterward, some are strong at the broken places. But those who will not break it kills.|window
 
 The truth is rarely pure and never simple. Modern life would be very tedious if it were either, and modern literature a complete impossibility.|curtain
 
 You never really understand a person until you consider things from his point of view… Until you climb inside of his skin and walk around in it.|shoe
 
-There is no secret ingredient. It's just you. To make something special, you just have to believe it’s special.|flame
+There is no secret ingredient. It's just you. To make something special, you just have to believe it’s special.|noodle
 
 The only way to get rid of a temptation is to yield to it. Resist it, and your soul grows sick with longing for the things it has forbidden to itself.|mirror
 
@@ -98,13 +92,9 @@ I have always depended on the kindness of strangers. People are so kind, and whe
 
 There are no happy endings because nothing ever really ends. Stories have this way of stretching on, far beyond the last page.|raven
 
-Do, or do not. There is no try. The Force will be with you, always. Stay true to your path and trust in yourself.|night
-
-Not all treasure is silver and gold, mate. The greatest treasure is friendship, loyalty, and the love you find along the way.|ship
-
 It is a far, far better thing that I do, than I have ever done. It is a far, far better rest that I go to than I have ever known.|forest
 
-You are braver than you believe, stronger than you seem, and smarter than you think. Keep believing in yourself no matter what.|river
+You are braver than you believe, stronger than you seem, and smarter than you think. Keep believing in yourself no matter what.|faith
 
 There are dark shadows on the earth, but its lights are stronger in the contrast. Hope is always brightest in the darkest hours.|candle
 
@@ -114,10 +104,6 @@ All that is gold does not glitter, not all those who wander are lost; the old th
 
 We all make choices, but in the end, our choices make us. Who we are is determined by what we choose to stand for.|street
 
-I wish it need not have happened in my time, but we cannot choose the times we live in. We must choose how to face them.|path
-
-The greatest thing you'll ever learn is just to love, and be loved in return. It’s the one thing we all strive for.|rose
-
 There are some things that time cannot mend. Some hurts that go too deep, that have taken hold of our hearts and will not let go.|cloud
 
 When we strive to become better than we are, everything around us becomes better too. This is the secret to happiness.|mirror
@@ -125,8 +111,6 @@ When we strive to become better than we are, everything around us becomes better
 The only limit to our realization of tomorrow is our doubts of today. Let us move forward with strong and active faith.|bridge
 
 In the end, it's not the years in your life that count. It's the life in your years that makes all the difference.|river
-
-Do not pity the dead, Harry. Pity the living, and above all those who live without love. Love is the most powerful force of all.|light
 
 I am and always will be the optimist, the hoper of far-flung hopes and the dreamer of improbable dreams.|compass
 
@@ -199,3 +183,63 @@ A group of crows is called a "murder." This ominous term has been used to descri
 Tigers have striped skin, not just striped fur. Even if you were to shave off their fur, the skin underneath would still display their unique stripes.|fur
 
 Cleopatra lived closer to the invention of the iPhone than the construction of the Great Pyramid. The Great Pyramid was completed around 2560 BC, while Cleopatra ruled Egypt in 30 BC.|pharaoh
+
+It was a beautiful fall day, and the leaves were every shade of red and yellow. A light breeze sent them tumbling across the ground as the crisp air filled my lungs. | winter
+
+The scent of freshly brewed coffee filled the small café, mingling with the warm glow of the morning sun. People shuffled in, their scarves tucked close as they ordered their drinks. | tea
+
+Waves crashed rhythmically against the shoreline, their soft roar a constant reminder of the ocean’s vastness. Seagulls flew overhead, calling out as the salty air filled the atmosphere. | mountain
+
+The fire crackled in the hearth, casting flickering shadows across the room. The warmth wrapped around me like a blanket as I curled up with my book, the world outside forgotten. | rain
+
+Snowflakes drifted gently from the sky, landing softly on the ground, turning the world into a quiet, white wonderland. The sound of children laughing echoed in the distance as they built snowmen. | summer
+
+The city streets were alive with the sound of honking cars and people chattering as they hurried along the sidewalks. Neon signs buzzed in the cool night air, casting a colorful glow. | forest
+
+Thunder rumbled in the distance as dark clouds gathered overhead. The wind picked up, rustling the trees as the storm approached, bringing with it the smell of rain and electricity. | sunshine
+
+The garden was in full bloom, vibrant flowers of every color swaying gently in the breeze. Bees buzzed from plant to plant, busy at work under the golden rays of the sun. | desert
+
+Laughter filled the air as the carnival lights blinked brightly against the evening sky. Children ran from ride to ride, their faces lit up with excitement and the smell of cotton candy everywhere. | library
+
+The mountains stood tall, their snow-capped peaks glowing in the morning light. The trail ahead was steep, but the fresh air and the smell of pine trees made every step worth it. | ocean
+
+The campfire crackled as everyone huddled around, roasting marshmallows and sharing stories. The stars above twinkled brightly, undisturbed by city lights, in the vast, clear night sky. | skyscraper
+
+It was a perfect spring morning. The dew still clung to the grass, and the birds sang sweetly as the sun began to rise, casting a soft golden light over everything. | midnight
+
+The market was bustling with activity, vendors calling out to passersby as the scent of fresh bread and spices filled the air. Colorful stalls displayed everything from handmade crafts to exotic fruits. | factory
+
+The music echoed through the halls of the old ballroom, its notes bouncing off the high ceilings. Chandeliers sparkled above as couples danced, their movements fluid and graceful. | stadium
+
+The smell of freshly baked cookies filled the kitchen, mixing with the sweet scent of vanilla and cinnamon. The oven door creaked open, revealing trays of warm, golden-brown treats. | apple
+
+A thick fog rolled over the harbor, obscuring the ships anchored in the bay. The horn of a distant boat echoed eerily through the mist as gulls circled overhead. | desert
+
+It was early morning in the forest, and the trees stood tall and still, their leaves rustling softly in the breeze. Sunlight filtered through the canopy, creating patches of golden light on the forest floor. | city
+
+The meadow was alive with the sound of crickets chirping and the soft rustle of grass in the wind. Wildflowers of every color dotted the landscape, swaying gently under the warm sun. | skyscraper
+
+The clock tower chimed in the distance, its bells ringing out over the quiet village. Cobblestone streets wound between old stone buildings, and lanterns flickered as the evening set in. | airplane
+
+A gentle breeze swept across the open field, carrying with it the scent of wildflowers and fresh grass. The sky above was a brilliant blue, with only a few puffy white clouds drifting lazily by. | ocean
+
+The library was hushed, with only the soft rustle of pages being turned breaking the silence. Dusty old books lined the shelves, their spines worn from years of being read and reread. | circus
+
+The train whistle blew as it pulled away from the station, steam billowing up into the chilly morning air. Passengers waved goodbye from the windows as the countryside rolled by outside. | bicycle
+
+Fireflies lit up the warm summer night, their tiny lights blinking in the dark. The air was filled with the sounds of crickets and the distant croak of frogs from the nearby pond. | snowstorm
+
+The sound of waves lapping against the side of the boat was peaceful, almost hypnotic. The sun was setting, casting a warm golden glow across the water as the boat gently swayed. | mountain
+
+The old, abandoned house stood at the end of the street, its windows dark and broken. Weeds had grown up around it, and the wooden steps creaked ominously as I approached. | school
+
+It was the height of summer, and the sun beat down relentlessly on the desert. The sand stretched out in every direction, broken only by the occasional cactus or scraggly shrub. | ocean
+
+The cozy cabin was nestled in the woods, surrounded by towering pine trees. A thin wisp of smoke curled up from the chimney, and the smell of burning wood filled the crisp air. | office
+
+The festival was in full swing, with colorful banners strung across the streets and the sound of music filling the air. People danced and laughed, their faces lit up with joy and excitement. | cave
+
+The narrow streets of the old town were lined with shops and cafés, their doors flung open to welcome in the cool evening breeze. The smell of fresh bread wafted through the air. | highway
+
+The sun had just dipped below the horizon, painting the sky in shades of pink and orange. The beach was quiet now, with only the sound of waves crashing softly against the shore. | mountain

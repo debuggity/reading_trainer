@@ -325,6 +325,10 @@ document.getElementById('applySettings').addEventListener('click', function() {
     document.getElementById('settingsPopup').style.display = 'none';
 });
 
+document.getElementById('closeSettings').addEventListener('click', function() {
+    document.getElementById('settingsPopup').style.display = 'none';
+});
+
 // Call the function to load comprehension data on page load
 window.onload = function() {
     loadComprehensionData();
