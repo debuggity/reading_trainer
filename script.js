@@ -273,11 +273,18 @@ function renderStats() {
         y: speed       // The actual WPM for each round
     }));
 
-    // Prepare data for Accuracy chart with round number as the x-axis
-    const accuracyData = comprehensionAccuracy.map((accuracy, index) => ({
-        x: index + 1,  // Round number
-        y: (accuracy * 100).toFixed(2)  // Percentage accuracy for each round
-    }));
+    // Calculate running average of comprehension accuracy
+    const accuracyData = [];
+    let totalAccuracy = 0;
+    
+    comprehensionAccuracy.forEach((accuracy, index) => {
+        totalAccuracy += accuracy;
+        const runningAverageAccuracy = (totalAccuracy / (index + 1)) * 100;  // Calculate running average
+        accuracyData.push({
+            x: index + 1,  // Round number
+            y: runningAverageAccuracy.toFixed(2)  // Running average accuracy in percentage
+        });
+    });
 
     // Destroy existing charts if they exist to avoid duplication
     if (window.wpmChartInstance) {
@@ -384,8 +391,8 @@ function renderStats() {
                         text: 'Comprehension Accuracy (%)'
                     },
                     beginAtZero: false,  // Don't start from 0 to avoid clutter
-                    min: Math.min(...comprehensionAccuracy.map(acc => acc * 100)) - 5, // Set minimum y value
-                    max: Math.max(...comprehensionAccuracy.map(acc => acc * 100)) + 5, // Set maximum y value
+                    min: Math.min(...accuracyData.map(acc => acc.y)) - 5, // Set minimum y value
+                    max: 100  // Accuracy should cap at 100%
                 }
             },
             plugins: {
@@ -403,7 +410,6 @@ function renderStats() {
         }
     });
 }
-
 
 // Modify submitComprehensionAnswer to update stats
 function submitComprehensionAnswer() {
