@@ -378,6 +378,12 @@ body.dark-mode #shareButton {
     color: white; /* Keep the icon color white */
 }
 
+body.dark-mode #settingsButton:hover,
+body.dark-mode #shareButton:hover {
+    color: #16a085;; /* Keep the icon color white */
+}
+
+
 /* Dark Mode Styles for Comprehension Section */
 #comprehensionQuestion.dark-mode {
     background-color: #3b4a5a; /* Dark background */
