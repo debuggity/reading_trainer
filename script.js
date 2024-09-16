@@ -129,6 +129,7 @@ function highlightWordsAtReadingSpeed(words, averageSpeedWPM) {
     }, intervalTime);
 }
 
+// Modify finishReading to update stats
 function finishReading() {
     const endTime = new Date();
     const readingTime = (endTime - startTime) / 1000; // in seconds
@@ -245,6 +246,157 @@ async function showComprehensionQuestion() {
     document.getElementById('comprehensionQuestion').style.display = 'block';
 }
 
+// Add event listener for opening Stats modal
+document.getElementById('openStats').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('statsModal').style.display = 'block';
+    renderStats(); // Render the charts when the modal is opened
+});
+
+// Add event listener for closing Stats modal
+document.getElementById('closeStats').addEventListener('click', function() {
+    document.getElementById('statsModal').style.display = 'none';
+});
+
+// Function to render the stats charts
+function renderStats() {
+    // Retrieve data from localStorage
+    const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
+    const comprehensionAccuracy = JSON.parse(localStorage.getItem('comprehensionAccuracy')) || [];
+
+    // Calculate total rounds played
+    const totalRounds = Math.max(readingSpeeds.length, comprehensionAccuracy.length);
+    document.getElementById('totalRounds').innerText = totalRounds;
+
+    // Prepare data for WPM chart
+    const wpmData = readingSpeeds.map((speed, index) => ({
+        x: index + 1,
+        y: speed
+    }));
+
+    // Prepare data for Accuracy chart
+    const accuracyData = comprehensionAccuracy.map((accuracy, index) => ({
+        x: index + 1,
+        y: (accuracy * 100).toFixed(2)
+    }));
+
+    // Destroy existing charts if they exist to avoid duplication
+    if (window.wpmChartInstance) {
+        window.wpmChartInstance.destroy();
+    }
+    if (window.accuracyChartInstance) {
+        window.accuracyChartInstance.destroy();
+    }
+
+    // Get context for WPM chart
+    const wpmCtx = document.getElementById('wpmChart').getContext('2d');
+    window.wpmChartInstance = new Chart(wpmCtx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'WPM',
+                data: wpmData,
+                borderColor: '#3498db',
+                backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 5,
+                pointBackgroundColor: '#3498db',
+                pointHoverRadius: 7,
+                pointHoverBackgroundColor: '#2980b9'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Round'
+                    },
+                    ticks: {
+                        precision:0
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Words Per Minute'
+                    },
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.parsed.y} WPM`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Get context for Accuracy chart
+    const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
+    window.accuracyChartInstance = new Chart(accuracyCtx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Comprehension Accuracy (%)',
+                data: accuracyData,
+                borderColor: '#e67e22',
+                backgroundColor: 'rgba(230, 126, 34, 0.2)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 5,
+                pointBackgroundColor: '#e67e22',
+                pointHoverRadius: 7,
+                pointHoverBackgroundColor: '#d35400'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Round'
+                    },
+                    ticks: {
+                        precision:0
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Comprehension Accuracy (%)'
+                    },
+                    beginAtZero: true,
+                    max: 100
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.parsed.y}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Modify submitComprehensionAnswer to update stats
 function submitComprehensionAnswer() {
     const selectedOption = document.querySelector('input[name="comprehensionAnswer"]:checked');
     const userAnswer = selectedOption ? cleanWord(selectedOption.value) : "";
@@ -310,6 +462,9 @@ window.onclick = function(event) {
     }
     if (event.target == document.getElementById('aboutModal')) {
         document.getElementById('aboutModal').style.display = 'none';
+    }
+    if (event.target == document.getElementById('statsModal')) { // Add this condition
+        document.getElementById('statsModal').style.display = 'none';
     }
 }
 

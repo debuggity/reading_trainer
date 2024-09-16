@@ -142,9 +142,30 @@
         </div>
     </div>
 
-    <!-- Footer with links to Features and About -->
+    <!-- Stats Modal -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content stats-content">
+            <span class="close" id="closeStats">&times;</span>
+            <h2>Your Reading Stats</h2>
+            
+            <!-- Total Rounds Played -->
+            <p>Total Rounds Played: <span id="totalRounds">0</span></p>
+            
+            <!-- WPM Over Time Chart -->
+            <h3>Words Per Minute Over Time</h3>
+            <canvas id="wpmChart"></canvas>
+            
+            <!-- Comprehension Accuracy Over Time Chart -->
+            <h3>Comprehension Accuracy Over Time</h3>
+            <canvas id="accuracyChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Footer with links to Features, About, and Stats -->
     <footer>
-        <a href="#" id="openFeatures">Features</a> | <a href="#" id="openAbout">About</a>
+        <a href="#" id="openFeatures">Features</a> | 
+        <a href="#" id="openAbout">About</a> | 
+        <a href="#" id="openStats">Stats</a>
     </footer>
 
     <!-- Scripts -->

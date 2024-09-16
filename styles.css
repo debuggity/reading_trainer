@@ -483,6 +483,53 @@ input[type="radio"]:not(:checked) + .answerLabel.dark-mode:hover {
     font-weight: 600;
 }
 
+/* Stats Modal Styling */
+.stats-content {
+    background-color: #f8f9fa; /* Light background for professionalism */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.stats-content h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.stats-content h3 {
+    color: #1abc9c;
+    font-size: 22px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.stats-content p {
+    color: #2c3e50;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+/* Dark Mode Styles for Stats Modal */
+.stats-content.dark-mode h2,
+.stats-content.dark-mode h3,
+.stats-content.dark-mode p {
+    color: #ecf0f1; /* Light text for headings and paragraphs */
+}
+
+.stats-content.dark-mode h3 {
+    color: #1abc9c; /* Accent color for subheadings in dark mode */
+}
+
+/* Responsive Canvas */
+.stats-content canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+
 /* Ensure readability on smaller screens */
 @media (max-width: 768px) {
     .about-content h2 {
