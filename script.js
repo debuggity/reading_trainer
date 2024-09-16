@@ -129,7 +129,6 @@ function highlightWordsAtReadingSpeed(words, averageSpeedWPM) {
     }, intervalTime);
 }
 
-// Modify finishReading to update stats
 function finishReading() {
     const endTime = new Date();
     const readingTime = (endTime - startTime) / 1000; // in seconds
@@ -150,8 +149,19 @@ function finishReading() {
 
     document.getElementById('textPassage').style.display = 'none';
     document.getElementById('finishButton').style.display = 'none'; // Hide the finish button here
+
     showComprehensionQuestion();
+
+    // Show the "View Your Stats" button after the test results
+    const viewStatsButton = document.getElementById('viewStatsButton');
+    viewStatsButton.style.display = 'inline-block';  // Make the button visible
 }
+
+// Add an event listener for the "View Your Stats" button
+document.getElementById('viewStatsButton').addEventListener('click', function() {
+    document.getElementById('statsModal').style.display = 'block';
+    renderStats();  // Call the function to render stats
+});
 
 function getAverageSpeed() {
     console.log('Current reading speeds:', readingSpeeds); // Debugging line

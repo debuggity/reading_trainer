@@ -529,6 +529,21 @@ input[type="radio"]:not(:checked) + .answerLabel.dark-mode:hover {
     height: auto;
 }
 
+#viewStatsButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-top: 15px;  /* Add some margin to create space between the button and results text */
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+}
+
+#viewStatsButton:hover {
+    background-color: #2980b9;
+}
 
 /* Ensure readability on smaller screens */
 @media (max-width: 768px) {
