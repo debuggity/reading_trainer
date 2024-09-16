@@ -145,24 +145,17 @@ function finishReading() {
     localStorage.setItem('readingSpeeds', JSON.stringify(readingSpeeds));
 
     const averageSpeed = getAverageSpeed();
-    
-    // Update the results content
-    document.getElementById('results').innerHTML = `
-        Your reading speed: <strong>${readingSpeedWPM.toFixed(2)} words/minute</strong> (${readingSpeedWPS.toFixed(2)} words/second).<br>
-        10-game weighted average: <strong>${averageSpeed.toFixed(2)} words/minute</strong>.
-    `;
-    
-    // Ensure the results and the "View Your Stats" button are visible
-    document.getElementById('results').style.display = 'block'; // Make sure the results are visible
-    document.getElementById('viewStatsButton').style.display = 'inline-block'; // Show the stats button
+    document.getElementById('results').innerHTML = `Your reading speed: <strong>${readingSpeedWPM.toFixed(2)} words/minute</strong> (${readingSpeedWPS.toFixed(2)} words/second).<br>10-game weighted average: <strong>${averageSpeed.toFixed(2)} words/minute</strong>.`;
 
-    // Hide the text passage and finish button
     document.getElementById('textPassage').style.display = 'none';
-    document.getElementById('finishButton').style.display = 'none'; 
+    document.getElementById('finishButton').style.display = 'none'; // Hide the finish button here
 
     showComprehensionQuestion();
-}
 
+    // Show the "View Your Stats" button after the test results
+    const viewStatsButton = document.getElementById('viewStatsButton');
+    viewStatsButton.style.display = 'inline-block';  // Make the button visible
+}
 
 // Add an event listener for the "View Your Stats" button
 document.getElementById('viewStatsButton').addEventListener('click', function() {
