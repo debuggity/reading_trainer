@@ -258,7 +258,6 @@ document.getElementById('closeStats').addEventListener('click', function() {
     document.getElementById('statsModal').style.display = 'none';
 });
 
-// Function to render the stats charts
 function renderStats() {
     // Retrieve data from localStorage
     const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
@@ -268,16 +267,16 @@ function renderStats() {
     const totalRounds = Math.max(readingSpeeds.length, comprehensionAccuracy.length);
     document.getElementById('totalRounds').innerText = totalRounds;
 
-    // Prepare data for WPM chart
+    // Prepare data for WPM chart with round number as the x-axis
     const wpmData = readingSpeeds.map((speed, index) => ({
-        x: index + 1,
-        y: speed
+        x: index + 1,  // This represents the round number over time
+        y: speed       // The actual WPM for each round
     }));
 
-    // Prepare data for Accuracy chart
+    // Prepare data for Accuracy chart with round number as the x-axis
     const accuracyData = comprehensionAccuracy.map((accuracy, index) => ({
-        x: index + 1,
-        y: (accuracy * 100).toFixed(2)
+        x: index + 1,  // Round number
+        y: (accuracy * 100).toFixed(2)  // Percentage accuracy for each round
     }));
 
     // Destroy existing charts if they exist to avoid duplication
@@ -312,10 +311,12 @@ function renderStats() {
                 x: {
                     title: {
                         display: true,
-                        text: 'Round'
+                        text: 'Round'  // Display round number as time progression
                     },
                     ticks: {
-                        precision:0
+                        precision: 0,
+                        stepSize: 1,  // Ensure each round is represented
+                        beginAtZero: true
                     }
                 },
                 y: {
@@ -323,7 +324,9 @@ function renderStats() {
                         display: true,
                         text: 'Words Per Minute'
                     },
-                    beginAtZero: true
+                    beginAtZero: false, // Prevent y-axis from starting at 0
+                    min: Math.min(...readingSpeeds) - 10, // Set minimum y value slightly lower than min WPM
+                    max: Math.max(...readingSpeeds) + 10, // Set maximum y value slightly higher than max WPM
                 }
             },
             plugins: {
@@ -365,10 +368,12 @@ function renderStats() {
                 x: {
                     title: {
                         display: true,
-                        text: 'Round'
+                        text: 'Round'  // Round number representing time progression
                     },
                     ticks: {
-                        precision:0
+                        precision: 0,
+                        stepSize: 1,
+                        beginAtZero: true
                     }
                 },
                 y: {
@@ -376,8 +381,9 @@ function renderStats() {
                         display: true,
                         text: 'Comprehension Accuracy (%)'
                     },
-                    beginAtZero: true,
-                    max: 100
+                    beginAtZero: false,  // Don't start from 0 to avoid clutter
+                    min: Math.min(...comprehensionAccuracy.map(acc => acc * 100)) - 5, // Set minimum y value
+                    max: Math.max(...comprehensionAccuracy.map(acc => acc * 100)) + 5, // Set maximum y value
                 }
             },
             plugins: {
@@ -395,6 +401,7 @@ function renderStats() {
         }
     });
 }
+
 
 // Modify submitComprehensionAnswer to update stats
 function submitComprehensionAnswer() {
