@@ -329,6 +329,23 @@ document.getElementById('closeSettings').addEventListener('click', function() {
     document.getElementById('settingsPopup').style.display = 'none';
 });
 
+// Share Button Functionality
+document.getElementById('shareButton').addEventListener('click', function() {
+    const url = window.location.href; // Get the current URL
+    navigator.clipboard.writeText(url).then(() => {
+        const notification = document.getElementById('copyNotification');
+        notification.classList.add('show'); // Show the notification
+
+        // Hide the notification after 2 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 2000);
+    }).catch(err => {
+        console.error('Error copying URL:', err);
+    });
+});
+
+
 // Call the function to load comprehension data on page load
 window.onload = function() {
     loadComprehensionData();

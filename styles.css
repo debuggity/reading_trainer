@@ -133,6 +133,43 @@ input[type="radio"]:checked + .answerLabel {
     border-color: #3498db;
 }
 
+/* Share Button Styling */
+#shareButton {
+    position: fixed;
+    top: 20px;
+    right: 80px; /* Slightly left of the settings button */
+    background-color: transparent;
+    color: #2c3e50;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+#shareButton:hover {
+    color: #2980b9;
+}
+
+/* Copy Notification Styling */
+#copyNotification {
+    position: fixed;
+    top: 60px;
+    right: 80px;
+    background-color: #1abc9c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    display: none; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Show the notification */
+#copyNotification.show {
+    display: block;
+    opacity: 1; /* Fade in */
+}
+
+
 /* Modals */
 .modal {
     display: none;
