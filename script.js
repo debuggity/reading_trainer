@@ -137,6 +137,9 @@ function finishReading() {
         readingSpeeds.shift(); // Keep only the latest 10 readings
     }
 
+    // Save reading speeds to localStorage
+    localStorage.setItem('readingSpeeds', JSON.stringify(readingSpeeds));
+
     const averageSpeed = getAverageSpeed();
     document.getElementById('results').innerHTML = `Your reading speed: <strong>${readingSpeedWPM.toFixed(2)} words/minute</strong> (${readingSpeedWPS.toFixed(2)} words/second).<br>10-game weighted average: <strong>${averageSpeed.toFixed(2)} words/minute</strong>.`;
 
@@ -250,6 +253,9 @@ function submitComprehensionAnswer() {
     if (comprehensionAccuracy.length > 10) {
         comprehensionAccuracy.shift(); // Keep only the latest 10 accuracy records
     }
+
+    // Save comprehension accuracy to localStorage
+    localStorage.setItem('comprehensionAccuracy', JSON.stringify(comprehensionAccuracy));
 
     const averageAccuracy = comprehensionAccuracy.reduce((a, b) => a + b, 0) / comprehensionAccuracy.length;
     const readingSpeedWPM = readingSpeeds[readingSpeeds.length-1]; // words per minute
@@ -378,23 +384,30 @@ function toggleDarkMode(enableDarkMode) {
 window.onload = function() {
     loadComprehensionData(); // Load comprehension data
     
-    // Check if dark mode was enabled previously
+    // Load dark mode setting
     const darkModeSetting = localStorage.getItem('darkMode');
     if (darkModeSetting === 'enabled') {
         document.getElementById('darkModeToggle').checked = true;
         toggleDarkMode(true);
     }
     
-    // Check if a font size was saved previously
+    // Load font size setting
     const savedFontSize = localStorage.getItem('fontSize');
     if (savedFontSize) {
-        // Apply the saved font size to the text passage
         document.getElementById('textPassage').style.fontSize = savedFontSize + 'px';
-        
-        // Set the slider to the saved value
         document.getElementById('fontSize').value = savedFontSize;
-        
-        // Update the sample text to reflect the saved font size
         document.getElementById('sampleText').style.fontSize = savedFontSize + 'px';
+    }
+
+    // Load reading speeds from localStorage
+    const savedReadingSpeeds = localStorage.getItem('readingSpeeds');
+    if (savedReadingSpeeds) {
+        readingSpeeds = JSON.parse(savedReadingSpeeds);
+    }
+
+    // Load comprehension accuracy from localStorage
+    const savedComprehensionAccuracy = localStorage.getItem('comprehensionAccuracy');
+    if (savedComprehensionAccuracy) {
+        comprehensionAccuracy = JSON.parse(savedComprehensionAccuracy);
     }
 };
