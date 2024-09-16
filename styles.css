@@ -382,7 +382,6 @@ body.dark-mode #shareButton {
 #comprehensionQuestion.dark-mode {
     background-color: #3b4a5a; /* Dark background */
     color: #ecf0f1; /* Light text color */
-    border-color: #1abc9c; /* Optional, to match dark mode theme */
 }
 
 /* Dark Mode Styles for the Comprehension Question Text */

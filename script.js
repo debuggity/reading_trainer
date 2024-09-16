@@ -356,8 +356,8 @@ document.getElementById('darkModeToggle').addEventListener('change', function() 
 
 // Function to toggle dark mode on or off
 function toggleDarkMode(enableDarkMode) {
-    const elementsToToggle = document.querySelectorAll('body, .container, button, #textPassage, #results, .modal-content, footer');
-    
+    const elementsToToggle = document.querySelectorAll('body, .container, button, #textPassage, #results, .modal-content, footer, #comprehensionQuestion, .answerLabel');
+
     elementsToToggle.forEach(element => {
         if (enableDarkMode) {
             element.classList.add('dark-mode');
@@ -367,18 +367,13 @@ function toggleDarkMode(enableDarkMode) {
     });
 }
 
-// On page load, check if dark mode was enabled previously
 window.onload = function() {
-    loadComprehensionData(); // Existing function to load data
+    loadComprehensionData(); // Load comprehension data
     const darkModeSetting = localStorage.getItem('darkMode');
     
     if (darkModeSetting === 'enabled') {
         document.getElementById('darkModeToggle').checked = true;
-        toggleDarkMode(true);
+        toggleDarkMode(true); // Enable dark mode if previously enabled
     }
 };
 
-// Call the function to load comprehension data on page load
-window.onload = function() {
-    loadComprehensionData();
-};
