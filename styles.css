@@ -378,6 +378,14 @@ body.dark-mode #shareButton {
     color: white; /* Keep the icon color white */
 }
 
+#comprehensionQuestion.container.dark-mode {
+    background-color: #222e25;
+}
+
+#comprehensionQuestion.dark-mode p {
+    color: white;
+}
+
 
 /* Ensure readability on smaller screens */
 @media (max-width: 768px) {
