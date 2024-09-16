@@ -269,7 +269,7 @@ function renderStats() {
 
     // Prepare data for WPM chart with round number as the x-axis
     const wpmData = readingSpeeds.map((speed, index) => ({
-        x: index + 1,  // This represents the round number over time
+        x: index + 1,  // This represents the round number as a linear progression
         y: speed       // The actual WPM for each round
     }));
 
@@ -309,6 +309,7 @@ function renderStats() {
             responsive: true,
             scales: {
                 x: {
+                    type: 'linear',  // Ensure linear scaling for rounds
                     title: {
                         display: true,
                         text: 'Round'  // Display round number as time progression
@@ -366,6 +367,7 @@ function renderStats() {
             responsive: true,
             scales: {
                 x: {
+                    type: 'linear',  // Ensure linear scaling for rounds
                     title: {
                         display: true,
                         text: 'Round'  // Round number representing time progression
