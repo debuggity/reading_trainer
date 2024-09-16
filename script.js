@@ -306,6 +306,8 @@ function renderStats() {
 
     // Get context for WPM chart
     const wpmCtx = document.getElementById('wpmChart').getContext('2d');
+    const averageWPM = getAverageSpeed();  // Get the current average WPM
+
     window.wpmChartInstance = new Chart(wpmCtx, {
         type: 'line',
         data: {
@@ -357,10 +359,34 @@ function renderStats() {
                             return `${context.parsed.y} WPM`;
                         }
                     }
+                },
+                // Add the annotation for the average WPM line
+                annotation: {
+                    annotations: {
+                        line1: {
+                            type: 'line',
+                            yMin: averageWPM,
+                            yMax: averageWPM,
+                            borderColor: 'rgba(231, 76, 60, 0.8)',
+                            borderWidth: 2,
+                            borderDash: [6, 6],  // Dotted line
+                            label: {
+                                content: `Avg WPM: ${averageWPM.toFixed(2)}`,
+                                enabled: true,
+                                position: 'end',
+                                backgroundColor: 'rgba(231, 76, 60, 0.8)',
+                                color: '#ffffff',
+                                font: {
+                                    style: 'bold'
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     });
+
 
     // Get context for Accuracy chart
     const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
@@ -400,8 +426,8 @@ function renderStats() {
                         display: true,
                         text: 'Comprehension Accuracy (%)'
                     },
-                    beginAtZero: false,  // Don't start from 0 to avoid clutter
-                    min: Math.min(...accuracyData.map(acc => acc.y)) - 5, // Set minimum y value
+                    beginAtZero: true,  // Ensure Y-axis starts from 0
+                    min: 0,  // Explicitly set minimum Y value to 0
                     max: 100  // Accuracy should cap at 100%
                 }
             },
@@ -419,6 +445,7 @@ function renderStats() {
             }
         }
     });
+
 }
 
 // Modify submitComprehensionAnswer to update stats
