@@ -407,6 +407,35 @@ input[type="radio"]:not(:checked) + .answerLabel.dark-mode:hover {
     border-color: #b2bec3;
 }
 
+/* Dark Mode Styles for Modal Content */
+.modal-content.dark-mode {
+    background-color: #3b4a5a;
+    color: #ecf0f1; /* Light text color */
+}
+
+/* Dark Mode Styles for Features Modal */
+.features-content.dark-mode h2,
+.features-content.dark-mode h3,
+.features-content.dark-mode p {
+    color: #ecf0f1; /* Light text for headings and paragraphs */
+}
+
+.features-content.dark-mode h3 {
+    color: #1abc9c; /* Accent color for subheadings in dark mode */
+}
+
+/* Dark Mode Styles for About Modal */
+.about-content.dark-mode h2,
+.about-content.dark-mode h3,
+.about-content.dark-mode p {
+    color: #ecf0f1; /* Light text for headings and paragraphs */
+}
+
+.about-content.dark-mode h3 {
+    color: #e67e22; /* Accent color for subheadings in dark mode */
+}
+
+
 /* Ensure readability on smaller screens */
 @media (max-width: 768px) {
     .features-content h2 {

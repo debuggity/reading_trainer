@@ -315,12 +315,20 @@ document.getElementsByClassName('close')[0].addEventListener('click', function()
 document.getElementById('fontSize').addEventListener('input', function() {
     const fontSize = document.getElementById('fontSize').value;
     document.getElementById('sampleText').style.fontSize = fontSize + 'px';
+    
+    // Save the font size to localStorage
+    localStorage.setItem('fontSize', fontSize);
 });
 
 document.getElementById('applySettings').addEventListener('click', function() {
     const fontSize = document.getElementById('fontSize').value;
+    
     // Apply the font size to the text passage
     document.getElementById('textPassage').style.fontSize = fontSize + 'px';
+    
+    // Save the font size to localStorage
+    localStorage.setItem('fontSize', fontSize);
+    
     // Hide the settings popup after applying the settings
     document.getElementById('settingsPopup').style.display = 'none';
 });
@@ -369,11 +377,24 @@ function toggleDarkMode(enableDarkMode) {
 
 window.onload = function() {
     loadComprehensionData(); // Load comprehension data
-    const darkModeSetting = localStorage.getItem('darkMode');
     
+    // Check if dark mode was enabled previously
+    const darkModeSetting = localStorage.getItem('darkMode');
     if (darkModeSetting === 'enabled') {
         document.getElementById('darkModeToggle').checked = true;
-        toggleDarkMode(true); // Enable dark mode if previously enabled
+        toggleDarkMode(true);
+    }
+    
+    // Check if a font size was saved previously
+    const savedFontSize = localStorage.getItem('fontSize');
+    if (savedFontSize) {
+        // Apply the saved font size to the text passage
+        document.getElementById('textPassage').style.fontSize = savedFontSize + 'px';
+        
+        // Set the slider to the saved value
+        document.getElementById('fontSize').value = savedFontSize;
+        
+        // Update the sample text to reflect the saved font size
+        document.getElementById('sampleText').style.fontSize = savedFontSize + 'px';
     }
 };
-
