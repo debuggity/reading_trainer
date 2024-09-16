@@ -378,14 +378,35 @@ body.dark-mode #shareButton {
     color: white; /* Keep the icon color white */
 }
 
-#comprehensionQuestion.container.dark-mode {
-    background-color: #222e25;
+/* Dark Mode Styles for Comprehension Section */
+#comprehensionQuestion.dark-mode {
+    background-color: #3b4a5a; /* Dark background */
+    color: #ecf0f1; /* Light text color */
+    border-color: #1abc9c; /* Optional, to match dark mode theme */
 }
 
+/* Dark Mode Styles for the Comprehension Question Text */
 #comprehensionQuestion.dark-mode p {
-    color: white;
+    color: #ecf0f1; /* Ensure question text is readable */
 }
 
+/* Dark Mode for Answer Options (radio buttons) */
+.answerLabel.dark-mode {
+    background: #3b4a5a; /* Dark background for options */
+    color: #ecf0f1; /* Light text */
+    border-color: #1abc9c; /* Optional, to match dark mode */
+}
+
+input[type="radio"]:checked + .answerLabel.dark-mode {
+    background-color: #3498db; /* Highlight selected option */
+    border-color: #3498db;
+    color: white; /* Ensure selected text is white */
+}
+
+input[type="radio"]:not(:checked) + .answerLabel.dark-mode:hover {
+    background-color: #34495e; /* Hover effect in dark mode */
+    border-color: #b2bec3;
+}
 
 /* Ensure readability on smaller screens */
 @media (max-width: 768px) {
