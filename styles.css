@@ -372,6 +372,11 @@ footer.dark-mode a {
     color: #1abc9c;
 }
 
+/* Dark Mode Settings and Share Button Styling */
+body.dark-mode #settingsButton,
+body.dark-mode #shareButton {
+    color: white; /* Keep the icon color white */
+}
 
 
 /* Ensure readability on smaller screens */
