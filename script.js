@@ -345,6 +345,38 @@ document.getElementById('shareButton').addEventListener('click', function() {
     });
 });
 
+// Dark Mode Toggle Functionality
+document.getElementById('darkModeToggle').addEventListener('change', function() {
+    const isChecked = this.checked;
+    toggleDarkMode(isChecked);
+    
+    // Save the user's preference to localStorage
+    localStorage.setItem('darkMode', isChecked ? 'enabled' : 'disabled');
+});
+
+// Function to toggle dark mode on or off
+function toggleDarkMode(enableDarkMode) {
+    const elementsToToggle = document.querySelectorAll('body, .container, button, #textPassage, #results, .modal-content, footer');
+    
+    elementsToToggle.forEach(element => {
+        if (enableDarkMode) {
+            element.classList.add('dark-mode');
+        } else {
+            element.classList.remove('dark-mode');
+        }
+    });
+}
+
+// On page load, check if dark mode was enabled previously
+window.onload = function() {
+    loadComprehensionData(); // Existing function to load data
+    const darkModeSetting = localStorage.getItem('darkMode');
+    
+    if (darkModeSetting === 'enabled') {
+        document.getElementById('darkModeToggle').checked = true;
+        toggleDarkMode(true);
+    }
+};
 
 // Call the function to load comprehension data on page load
 window.onload = function() {
