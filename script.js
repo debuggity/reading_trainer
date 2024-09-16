@@ -114,9 +114,13 @@ function highlightWordsAtReadingSpeed(words, averageSpeedWPM) {
     const intervalTime = (60 / averageSpeedWPM) * 1000; // Time per word in milliseconds
     let wordIndex = 0;
 
+    // Check if dark mode is enabled
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const highlightColor = isDarkMode ? '#1abc9c' : 'green'; // Use different colors for dark and light modes
+
     const intervalId = setInterval(() => {
         if (wordIndex < words.length) {
-            words[wordIndex] = `<span style="color: green;">${words[wordIndex]}</span>`;
+            words[wordIndex] = `<span style="color: ${highlightColor};">${words[wordIndex]}</span>`;
             document.getElementById('textPassage').innerHTML = words.join(' ');
             wordIndex++;
         } else {
