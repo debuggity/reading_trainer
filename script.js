@@ -304,10 +304,11 @@ function renderStats() {
         window.accuracyChartInstance.destroy();
     }
 
+    // Calculate the average WPM for the red dotted line
+    const averageWPM = getAverageSpeed();
+
     // Get context for WPM chart
     const wpmCtx = document.getElementById('wpmChart').getContext('2d');
-    const averageWPM = getAverageSpeed();  // Get the current average WPM
-
     window.wpmChartInstance = new Chart(wpmCtx, {
         type: 'line',
         data: {
@@ -328,14 +329,14 @@ function renderStats() {
             responsive: true,
             scales: {
                 x: {
-                    type: 'linear',  // Ensure linear scaling for rounds
+                    type: 'linear',
                     title: {
                         display: true,
-                        text: 'Round'  // Display round number as time progression
+                        text: 'Round'
                     },
                     ticks: {
                         precision: 0,
-                        stepSize: 1,  // Ensure each round is represented
+                        stepSize: 1,
                         beginAtZero: true
                     }
                 },
@@ -344,9 +345,9 @@ function renderStats() {
                         display: true,
                         text: 'Words Per Minute'
                     },
-                    beginAtZero: false, // Prevent y-axis from starting at 0
-                    min: Math.min(...readingSpeeds) - 10, // Set minimum y value slightly lower than min WPM
-                    max: Math.max(...readingSpeeds) + 10, // Set maximum y value slightly higher than max WPM
+                    beginAtZero: false,
+                    min: Math.min(...readingSpeeds) - 10,
+                    max: Math.max(...readingSpeeds) + 10,
                 }
             },
             plugins: {
@@ -360,25 +361,21 @@ function renderStats() {
                         }
                     }
                 },
-                // Add the annotation for the average WPM line
                 annotation: {
                     annotations: {
-                        line1: {
+                        avgWPMLine: {
                             type: 'line',
                             yMin: averageWPM,
                             yMax: averageWPM,
-                            borderColor: 'rgba(231, 76, 60, 0.8)',
+                            borderColor: 'red',
                             borderWidth: 2,
-                            borderDash: [6, 6],  // Dotted line
+                            borderDash: [5, 5], // Dotted line
                             label: {
                                 content: `Avg WPM: ${averageWPM.toFixed(2)}`,
                                 enabled: true,
-                                position: 'end',
-                                backgroundColor: 'rgba(231, 76, 60, 0.8)',
-                                color: '#ffffff',
-                                font: {
-                                    style: 'bold'
-                                }
+                                position: 'start',
+                                backgroundColor: 'rgba(255,0,0,0.5)',
+                                color: 'black',
                             }
                         }
                     }
@@ -386,6 +383,7 @@ function renderStats() {
             }
         }
     });
+
 
 
 
