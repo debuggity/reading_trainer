@@ -304,11 +304,6 @@ function renderStats() {
         window.accuracyChartInstance.destroy();
     }
 
-    // Ensure chartjs-plugin-annotation is correctly registered
-    if (Chart.hasOwnProperty('register')) {
-        Chart.register(ChartAnnotation);
-    }
-
     // Calculate the average WPM for the red dotted line
     const averageWPM = getAverageSpeed();
 
@@ -372,34 +367,22 @@ function renderStats() {
                             type: 'line',
                             yMin: averageWPM,
                             yMax: averageWPM,
-                            borderColor: 'rgba(255, 0, 0, 0.3)', // Red with reduced opacity
+                            borderColor: 'red',
                             borderWidth: 2,
                             borderDash: [5, 5], // Dotted line
                             label: {
-                                display: false, // Hides the label
+                                content: `${averageWPM.toFixed(2)}`,
+                                enabled: true,
+                                position: 'start',
+                                backgroundColor: 'rgba(255,0,0,0.2)',
+                                color: 'black',
                             }
-                        },
-                        avgWPMNumber: {
-                            type: 'label',
-                            content: `Avg WPM: ${averageWPM.toFixed(2)}`,
-                            position: 'end',
-                            yAdjust: -10, // Ensure the label does not overlap with the line
-                            xValue: wpmData.length, // Display at the end of the x-axis
-                            yValue: averageWPM, // Align with the average WPM
-                            backgroundColor: 'rgba(0, 0, 0, 0)', // Make background transparent
-                            font: {
-                                size: 12,
-                                style: 'normal',
-                                weight: 'bold'
-                            },
-                            color: 'black'
                         }
                     }
                 }
             }
         }
     });
-
 
     // Get context for Accuracy chart
     const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
