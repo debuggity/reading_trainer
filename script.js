@@ -304,6 +304,11 @@ function renderStats() {
         window.accuracyChartInstance.destroy();
     }
 
+    // Ensure chartjs-plugin-annotation is correctly registered
+    if (Chart.hasOwnProperty('register')) {
+        Chart.register(ChartAnnotation);
+    }
+
     // Calculate the average WPM for the red dotted line
     const averageWPM = getAverageSpeed();
 
@@ -370,6 +375,9 @@ function renderStats() {
                             borderColor: 'rgba(255, 0, 0, 0.3)', // Red with reduced opacity
                             borderWidth: 2,
                             borderDash: [5, 5], // Dotted line
+                            label: {
+                                display: false, // Hides the label
+                            }
                         },
                         avgWPMNumber: {
                             type: 'label',
@@ -391,9 +399,6 @@ function renderStats() {
             }
         }
     });
-
-
-
 
 
     // Get context for Accuracy chart
