@@ -7,6 +7,7 @@ let readingSpeeds = [];
 let comprehensionAccuracy = [];
 let currentTextIndex = -1;
 let comprehensionData = []; // Initially empty, will be populated from the file
+let totalGames = 0; // Total games played
 
 // Function to load the comprehension data from the text file
 function loadComprehensionData() {
@@ -144,6 +145,10 @@ function finishReading() {
     // Save reading speeds to localStorage
     localStorage.setItem('readingSpeeds', JSON.stringify(readingSpeeds));
 
+    // Increment total games and save to localStorage
+    totalGames++;
+    localStorage.setItem('totalGames', totalGames);
+
     const averageSpeed = getAverageSpeed();
     document.getElementById('results').innerHTML = `Your reading speed: <strong>${readingSpeedWPM.toFixed(2)} words/minute</strong> (${readingSpeedWPS.toFixed(2)} words/second).<br>10-game weighted average: <strong>${averageSpeed.toFixed(2)} words/minute</strong>.`;
 
@@ -156,6 +161,7 @@ function finishReading() {
     const viewStatsButton = document.getElementById('viewStatsButton');
     viewStatsButton.style.display = 'inline-block';  // Make the button visible
 }
+
 
 // Add an event listener for the "View Your Stats" button
 document.getElementById('viewStatsButton').addEventListener('click', function() {
@@ -273,9 +279,8 @@ function renderStats() {
     const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
     const comprehensionAccuracy = JSON.parse(localStorage.getItem('comprehensionAccuracy')) || [];
 
-    // Calculate total rounds played
-    const totalRounds = Math.max(readingSpeeds.length, comprehensionAccuracy.length);
-    document.getElementById('totalRounds').innerText = totalRounds;
+    // Display total games played
+    document.getElementById('totalRounds').innerText = totalGames;
 
     // Prepare data for WPM chart with round number as the x-axis
     const wpmData = readingSpeeds.map((speed, index) => ({
@@ -584,14 +589,14 @@ function toggleDarkMode(enableDarkMode) {
 
 window.onload = function() {
     loadComprehensionData(); // Load comprehension data
-    
+
     // Load dark mode setting
     const darkModeSetting = localStorage.getItem('darkMode');
     if (darkModeSetting === 'enabled') {
         document.getElementById('darkModeToggle').checked = true;
         toggleDarkMode(true);
     }
-    
+
     // Load font size setting
     const savedFontSize = localStorage.getItem('fontSize');
     if (savedFontSize) {
@@ -610,5 +615,11 @@ window.onload = function() {
     const savedComprehensionAccuracy = localStorage.getItem('comprehensionAccuracy');
     if (savedComprehensionAccuracy) {
         comprehensionAccuracy = JSON.parse(savedComprehensionAccuracy);
+    }
+
+    // Load total games played from localStorage
+    const savedTotalGames = localStorage.getItem('totalGames');
+    if (savedTotalGames) {
+        totalGames = parseInt(savedTotalGames, 10);
     }
 };
