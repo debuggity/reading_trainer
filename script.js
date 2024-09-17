@@ -367,22 +367,31 @@ function renderStats() {
                             type: 'line',
                             yMin: averageWPM,
                             yMax: averageWPM,
-                            borderColor: 'red',
+                            borderColor: 'rgba(255, 0, 0, 0.3)', // Red with reduced opacity
                             borderWidth: 2,
                             borderDash: [5, 5], // Dotted line
-                            label: {
-                                content: `Avg WPM: ${averageWPM.toFixed(2)}`,
-                                enabled: true,
-                                position: 'start',
-                                backgroundColor: 'rgba(255,0,0,0.5)',
-                                color: 'black',
-                            }
+                        },
+                        avgWPMNumber: {
+                            type: 'label',
+                            content: `Avg WPM: ${averageWPM.toFixed(2)}`,
+                            position: 'end',
+                            yAdjust: -10, // Ensure the label does not overlap with the line
+                            xValue: wpmData.length, // Display at the end of the x-axis
+                            yValue: averageWPM, // Align with the average WPM
+                            backgroundColor: 'rgba(0, 0, 0, 0)', // Make background transparent
+                            font: {
+                                size: 12,
+                                style: 'normal',
+                                weight: 'bold'
+                            },
+                            color: 'black'
                         }
                     }
                 }
             }
         }
     });
+
 
 
 
