@@ -388,6 +388,7 @@ function renderStats() {
     });
 
 
+
     // Get context for Accuracy chart
     const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
     window.accuracyChartInstance = new Chart(accuracyCtx, {
