@@ -26,6 +26,18 @@ h1 {
     margin-bottom: 40px;
 }
 
+/* Styling for the Subtitle */
+.subtitle {
+    font-size: 20px; /* Smaller font size */
+    font-weight: 300; /* Light font weight */
+    color: #7f8c8d; /* Softer color, less attention-grabbing */
+    margin-top: -10px; /* Reduces the gap between the header and subtitle */
+    margin-bottom: 40px; /* Adds some space before the rest of the content */
+    opacity: 0.8; /* Slightly lower opacity for subtle effect */
+    text-align: center; /* Keeps it centered below the main header */
+    font-style: italic; /* Optional: Adds a subtle differentiation */
+}
+
 /* Buttons */
 button {
     background-color: #3498db;
