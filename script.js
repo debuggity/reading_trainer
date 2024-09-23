@@ -216,8 +216,9 @@ async function showComprehensionQuestion() {
         .filter(word => !stopWords.has(cleanWord(word)))
         .map(cleanWord);
 
+    // If the passage has no suitable words, use the decoy as fallback
     if (wordsInPassage.length === 0) {
-        wordsInPassage.push(cleanWord(currentData.decoy)); // Fallback
+        wordsInPassage.push(cleanWord(currentData.decoy));
     }
 
     let synonyms = [];
@@ -226,22 +227,31 @@ async function showComprehensionQuestion() {
 
     do {
         if (attempts >= wordsInPassage.length) {
-            console.log("No suitable words with synonyms found in the passage.");
-            return; // Or handle this case as appropriate
+            console.log("No suitable words with synonyms found in the passage. Using the decoy and actual word.");
+
+            // Fallback: Use the decoy and the actual word from the passage
+            const fallbackOptions = [cleanWord(currentData.decoy), cleanWord(wordsInPassage[0])];
+            displayComprehensionOptions(fallbackOptions);
+            return; // Exit the loop and function after using the fallback
         }
 
         randomWord = wordsInPassage[Math.floor(Math.random() * wordsInPassage.length)];
         const response = await generateSynonyms(randomWord);
         console.log(response.synonyms);
-        
+
+        // Filter synonyms that are not the original word and are not already in the passage
         synonyms = response.synonyms.filter(syn => syn !== randomWord && !wordsInPassage.includes(syn));
         attempts++;
     } while (synonyms.length < 4);
 
+    // Use the found synonyms or fallback options
     const options = [randomWord, cleanWord(synonyms[0]), cleanWord(synonyms[1]), cleanWord(synonyms[2])];
-
     options.sort(() => Math.random() - 0.5); // Shuffle options
 
+    displayComprehensionOptions(options);
+}
+
+function displayComprehensionOptions(options) {
     const optionsContainer = document.getElementById('answerOptions');
     optionsContainer.innerHTML = '';
 
