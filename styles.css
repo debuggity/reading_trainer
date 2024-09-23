@@ -504,7 +504,7 @@ input[type="radio"]:not(:checked) + .answerLabel.dark-mode:hover {
 /* Export Buttons */
 #exportCSV,
 #exportPDF {
-    background-color: #2ecc71;
+    background-color: #55ad7a;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -556,6 +556,11 @@ body.dark-mode #exportPDF {
     background-color: #27ae60;
 }
 
+.stats-content .speed-distribution-chart .bar {
+    background-color: #3498db; /* Primary blue */
+    border-color: #2980b9;     /* Darker blue for borders */
+}
+
 /* Dark Mode for Speed Distribution Chart */
 #speedDistributionChart.dark-mode {
     background-color: #3b4a5a;
@@ -579,7 +584,7 @@ body.dark-mode #exportPDF {
 
 .stats-content.dark-mode #exportCSV,
 .stats-content.dark-mode #exportPDF {
-    background-color: #27ae60;
+    background-color: #66c48d;
     color: white;
 }
 
@@ -595,6 +600,32 @@ body.dark-mode #exportCSV:hover,
 body.dark-mode #exportPDF:hover {
     background-color: #1abc9c;
 }
+
+/* Reset Button Styling */
+#resetData {
+    background-color: #e74c3c; /* Red color to indicate caution */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+}
+#resetData:hover {
+    background-color: #c0392b;
+}
+
+/* Dark Mode Styling for Reset Button */
+body.dark-mode #resetData {
+    background-color: #e74c3c;
+    color: white;
+}
+body.dark-mode #resetData:hover {
+    background-color: #c0392b;
+}
+
 
 /* Responsive Achievements */
 @media (max-width: 768px) {

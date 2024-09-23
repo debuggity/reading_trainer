@@ -9,6 +9,10 @@ let currentTextIndex = -1;
 let comprehensionData = []; // Initially empty, will be populated from the file
 let totalGames = 0; // Total games played
 
+// Initialize allReadingSpeeds
+let allReadingSpeeds = [];
+
+
 // Function to load the comprehension data from the text file
 function loadComprehensionData() {
     return fetch('comprehensionData.txt') // Make sure the file is located in the same directory as the HTML file
@@ -137,13 +141,16 @@ function finishReading() {
     const readingSpeedWPS = words.length / readingTime; // words per second
     const readingSpeedWPM = readingSpeedWPS * 60; // words per minute
 
+    // Update limited readingSpeeds
     readingSpeeds.push(readingSpeedWPM);
     if (readingSpeeds.length > 10) {
         readingSpeeds.shift(); // Keep only the latest 10 readings
     }
-
-    // Save reading speeds to localStorage
     localStorage.setItem('readingSpeeds', JSON.stringify(readingSpeeds));
+
+    // Update allReadingSpeeds
+    allReadingSpeeds.push(readingSpeedWPM);
+    localStorage.setItem('allReadingSpeeds', JSON.stringify(allReadingSpeeds));
 
     // Increment total games and save to localStorage
     totalGames++;
@@ -277,14 +284,15 @@ document.getElementById('closeStats').addEventListener('click', function() {
 function renderStats() {
     // Retrieve data from localStorage
     const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
+    const allReadingSpeeds = JSON.parse(localStorage.getItem('allReadingSpeeds')) || [];
     const comprehensionAccuracy = JSON.parse(localStorage.getItem('comprehensionAccuracy')) || [];
     
     // Display total games played
     document.getElementById('totalRounds').innerText = totalGames;
     
     // Calculate Best and Worst Reading Speed
-    const bestSpeed = Math.max(...readingSpeeds);
-    const worstSpeed = Math.min(...readingSpeeds);
+    const bestSpeed = readingSpeeds.length > 0 ? Math.max(...readingSpeeds) : 0;
+    const worstSpeed = readingSpeeds.length > 0 ? Math.min(...readingSpeeds) : 0;
     document.getElementById('bestSpeed').innerText = bestSpeed.toFixed(2);
     document.getElementById('worstSpeed').innerText = worstSpeed.toFixed(2);
     
@@ -305,9 +313,9 @@ function renderStats() {
         y: accuracy * 100 // Convert to percentage
     }));
     
-    // Prepare data for Speed Distribution Chart
+    // Prepare data for Speed Distribution Chart using allReadingSpeeds
     const speedBuckets = {};
-    readingSpeeds.forEach(speed => {
+    allReadingSpeeds.forEach(speed => {
         const bucket = Math.floor(speed / 50) * 50; // e.g., 0-50, 51-100, etc.
         speedBuckets[bucket] = (speedBuckets[bucket] || 0) + 1;
     });
@@ -367,8 +375,8 @@ function renderStats() {
                         text: 'Words Per Minute'
                     },
                     beginAtZero: false,
-                    min: Math.min(...readingSpeeds) - 10,
-                    max: Math.max(...readingSpeeds) + 10,
+                    min: Math.min(...readingSpeeds, 0) - 10,
+                    max: Math.max(...readingSpeeds, averageWPM) + 10,
                 }
             },
             plugins: {
@@ -465,8 +473,8 @@ function renderStats() {
             datasets: [{
                 label: '# of Rounds',
                 data: speedCounts,
-                backgroundColor: '#2ecc71',
-                borderColor: '#27ae60',
+                backgroundColor: '#3498db', // Updated to match blue theme
+                borderColor: '#2980b9',     // Updated border color to match blue theme
                 borderWidth: 1
             }]
         },
@@ -504,10 +512,8 @@ function renderStats() {
     
     // Render Achievements
     renderAchievements();
-    
-    // Initialize Speed Distribution Chart
-    // Already handled above
 }
+
 
 function renderAchievements() {
     const achievementsContainer = document.getElementById('achievements');
@@ -781,6 +787,29 @@ function toggleDarkMode(enableDarkMode) {
     });
 }
 
+// Add event listener for the Reset Data button
+document.getElementById('resetData').addEventListener('click', function() {
+    if (confirm("Are you sure you want to reset all your data? This action cannot be undone.")) {
+        // Clear all relevant localStorage items
+        localStorage.removeItem('readingSpeeds');
+        localStorage.removeItem('allReadingSpeeds');
+        localStorage.removeItem('comprehensionAccuracy');
+        localStorage.removeItem('totalGames');
+        
+        // Reset variables
+        readingSpeeds = [];
+        allReadingSpeeds = [];
+        comprehensionAccuracy = [];
+        totalGames = 0;
+        
+        // Update the UI
+        renderStats();
+        
+        alert("All your data has been reset.");
+    }
+});
+
+
 window.onload = function() {
     loadComprehensionData(); // Load comprehension data
 
@@ -803,6 +832,12 @@ window.onload = function() {
     const savedReadingSpeeds = localStorage.getItem('readingSpeeds');
     if (savedReadingSpeeds) {
         readingSpeeds = JSON.parse(savedReadingSpeeds);
+    }
+
+    // Load allReadingSpeeds from localStorage
+    const savedAllReadingSpeeds = localStorage.getItem('allReadingSpeeds');
+    if (savedAllReadingSpeeds) {
+        allReadingSpeeds = JSON.parse(savedAllReadingSpeeds);
     }
 
     // Load comprehension accuracy from localStorage
