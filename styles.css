@@ -453,6 +453,156 @@ input[type="radio"]:not(:checked) + .answerLabel.dark-mode:hover {
     color: #e67e22; /* Accent color for subheadings in dark mode */
 }
 
+/* Performance Summary */
+.performance-summary {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.performance-summary p {
+    font-size: 16px;
+    color: #2c3e50;
+    margin: 5px 10px;
+}
+
+.performance-summary p span {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Achievements Section */
+#achievements {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    background-color: #f1c40f;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.badge:hover {
+    transform: scale(1.05);
+}
+
+.badge i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+/* Export Buttons */
+#exportCSV,
+#exportPDF {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+}
+
+#exportCSV:hover,
+#exportPDF:hover {
+    background-color: #27ae60;
+}
+
+/* Dark Mode for Performance Summary */
+.performance-summary p {
+    color: #ecf0f1;
+}
+
+.performance-summary p span {
+    color: #e67e22;
+}
+
+/* Dark Mode for Achievements */
+.badge {
+    background-color: #1abc9c;
+    color: #ecf0f1;
+}
+
+/* Achievement Badges Hover Effect */
+.badge:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.badge.dark-mode {
+    background-color: #16a085;
+}
+
+/* Dark Mode for Export Buttons */
+#exportCSV,
+#exportPDF {
+    background-color: #2ecc71;
+}
+
+body.dark-mode #exportCSV,
+body.dark-mode #exportPDF {
+    background-color: #27ae60;
+}
+
+/* Dark Mode for Speed Distribution Chart */
+#speedDistributionChart.dark-mode {
+    background-color: #3b4a5a;
+    color: #ecf0f1;
+}
+
+/* Adjust Modal Content for Dark Mode */
+.stats-content.dark-mode {
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+.stats-content.dark-mode .performance-summary p {
+    color: #ecf0f1;
+}
+
+.stats-content.dark-mode .badge {
+    background-color: #16a085;
+    color: #ecf0f1;
+}
+
+.stats-content.dark-mode #exportCSV,
+.stats-content.dark-mode #exportPDF {
+    background-color: #27ae60;
+    color: white;
+}
+
+/* Export Buttons Focus State */
+#exportCSV:focus,
+#exportPDF:focus {
+    outline: 2px solid #2980b9;
+    outline-offset: 2px;
+}
+
+/* Adjust Export Buttons for Dark Mode */
+body.dark-mode #exportCSV:hover,
+body.dark-mode #exportPDF:hover {
+    background-color: #1abc9c;
+}
+
+/* Responsive Achievements */
+@media (max-width: 768px) {
+    .performance-summary {
+        flex-direction: column;
+        align-items: center;
+    }
+}
 
 /* Ensure readability on smaller screens */
 @media (max-width: 768px) {

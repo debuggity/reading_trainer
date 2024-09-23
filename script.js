@@ -278,29 +278,42 @@ function renderStats() {
     // Retrieve data from localStorage
     const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
     const comprehensionAccuracy = JSON.parse(localStorage.getItem('comprehensionAccuracy')) || [];
-
+    
     // Display total games played
     document.getElementById('totalRounds').innerText = totalGames;
-
+    
+    // Calculate Best and Worst Reading Speed
+    const bestSpeed = Math.max(...readingSpeeds);
+    const worstSpeed = Math.min(...readingSpeeds);
+    document.getElementById('bestSpeed').innerText = bestSpeed.toFixed(2);
+    document.getElementById('worstSpeed').innerText = worstSpeed.toFixed(2);
+    
+    // Calculate Average Comprehension
+    const averageComprehension = comprehensionAccuracy.length > 0 ? 
+        ((comprehensionAccuracy.reduce((a, b) => a + b, 0) / comprehensionAccuracy.length) * 100).toFixed(2) : 0;
+    document.getElementById('averageComprehension').innerText = averageComprehension;
+    
     // Prepare data for WPM chart with round number as the x-axis
     const wpmData = readingSpeeds.map((speed, index) => ({
-        x: index + 1,  // This represents the round number as a linear progression
-        y: speed       // The actual WPM for each round
+        x: index + 1,  // Round number
+        y: speed       // WPM
     }));
-
-    // Calculate running average of comprehension accuracy
-    const accuracyData = [];
-    let totalAccuracy = 0;
     
-    comprehensionAccuracy.forEach((accuracy, index) => {
-        totalAccuracy += accuracy;
-        const runningAverageAccuracy = (totalAccuracy / (index + 1)) * 100;  // Calculate running average
-        accuracyData.push({
-            x: index + 1,  // Round number
-            y: runningAverageAccuracy.toFixed(2)  // Running average accuracy in percentage
-        });
+    // Prepare data for Comprehension Accuracy chart
+    const accuracyData = comprehensionAccuracy.map((accuracy, index) => ({
+        x: index + 1,
+        y: accuracy * 100 // Convert to percentage
+    }));
+    
+    // Prepare data for Speed Distribution Chart
+    const speedBuckets = {};
+    readingSpeeds.forEach(speed => {
+        const bucket = Math.floor(speed / 50) * 50; // e.g., 0-50, 51-100, etc.
+        speedBuckets[bucket] = (speedBuckets[bucket] || 0) + 1;
     });
-
+    const speedLabels = Object.keys(speedBuckets).sort((a, b) => a - b);
+    const speedCounts = speedLabels.map(label => speedBuckets[label]);
+    
     // Destroy existing charts if they exist to avoid duplication
     if (window.wpmChartInstance) {
         window.wpmChartInstance.destroy();
@@ -308,11 +321,14 @@ function renderStats() {
     if (window.accuracyChartInstance) {
         window.accuracyChartInstance.destroy();
     }
-
+    if (window.speedDistributionChartInstance) {
+        window.speedDistributionChartInstance.destroy();
+    }
+    
     // Calculate the average WPM for the red dotted line
     const averageWPM = getAverageSpeed();
-
-    // Get context for WPM chart
+    
+    // Render WPM Chart
     const wpmCtx = document.getElementById('wpmChart').getContext('2d');
     window.wpmChartInstance = new Chart(wpmCtx, {
         type: 'line',
@@ -372,18 +388,17 @@ function renderStats() {
                             type: 'line',
                             yMin: averageWPM,
                             yMax: averageWPM,
-                            borderColor: 'rgba(52, 152, 219, 0.4)',  // Match the theme with lower opacity
+                            borderColor: 'rgba(52, 152, 219, 0.4)',
                             borderWidth: 2,
-                            borderDash: [5, 5], // Dotted line
+                            borderDash: [5, 5],
                         }
                     }
                 }
             }
         }
     });
-
-
-    // Get context for Accuracy chart
+    
+    // Render Comprehension Accuracy Chart
     const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
     window.accuracyChartInstance = new Chart(accuracyCtx, {
         type: 'line',
@@ -405,10 +420,10 @@ function renderStats() {
             responsive: true,
             scales: {
                 x: {
-                    type: 'linear',  // Ensure linear scaling for rounds
+                    type: 'linear',
                     title: {
                         display: true,
-                        text: 'Round'  // Round number representing time progression
+                        text: 'Round'
                     },
                     ticks: {
                         precision: 0,
@@ -421,9 +436,9 @@ function renderStats() {
                         display: true,
                         text: 'Comprehension Accuracy (%)'
                     },
-                    beginAtZero: true,  // Ensure Y-axis starts from 0
-                    min: 0,  // Explicitly set minimum Y value to 0
-                    max: 100  // Accuracy should cap at 100%
+                    beginAtZero: true,
+                    min: 0,
+                    max: 100
                 }
             },
             plugins: {
@@ -440,7 +455,186 @@ function renderStats() {
             }
         }
     });
+    
+    // Render Speed Distribution Chart
+    const speedCtx = document.getElementById('speedDistributionChart').getContext('2d');
+    window.speedDistributionChartInstance = new Chart(speedCtx, {
+        type: 'bar',
+        data: {
+            labels: speedLabels,
+            datasets: [{
+                label: '# of Rounds',
+                data: speedCounts,
+                backgroundColor: '#2ecc71',
+                borderColor: '#27ae60',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'WPM Range'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Number of Rounds'
+                    },
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.parsed.y} Rounds`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    // Render Achievements
+    renderAchievements();
+    
+    // Initialize Speed Distribution Chart
+    // Already handled above
+}
 
+function renderAchievements() {
+    const achievementsContainer = document.getElementById('achievements');
+    achievementsContainer.innerHTML = ''; // Clear existing badges
+    
+    const achievements = getAchievements();
+    
+    achievements.forEach(achievement => {
+        const badge = document.createElement('div');
+        badge.className = 'badge';
+        badge.title = achievement.description;
+        
+        const icon = document.createElement('i');
+        icon.className = `fas ${achievement.icon}`;
+        
+        const label = document.createElement('span');
+        label.textContent = achievement.name;
+        
+        badge.appendChild(icon);
+        badge.appendChild(label);
+        achievementsContainer.appendChild(badge);
+        
+        // Apply dark mode class if enabled
+        if (document.body.classList.contains('dark-mode')) {
+            badge.classList.add('dark-mode');
+        }
+    });
+}
+
+
+function getAchievements() {
+    const achievements = [];
+    const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
+    const totalGames = parseInt(localStorage.getItem('totalGames'), 10) || 0;
+    
+    // Example Achievements
+    if (totalGames >= 10) {
+        achievements.push({
+            name: 'Reading Novice',
+            description: 'Completed 10 reading rounds.',
+            icon: 'fa-book-reader'
+        });
+    }
+    if (totalGames >= 50) {
+        achievements.push({
+            name: 'Reading Enthusiast',
+            description: 'Completed 50 reading rounds.',
+            icon: 'fa-user-graduate'
+        });
+    }
+    if (readingSpeeds.some(speed => speed >= 300)) {
+        achievements.push({
+            name: 'Speedster',
+            description: 'Achieved a reading speed of 300 WPM or higher.',
+            icon: 'fa-tachometer-alt-fast'
+        });
+    }
+    if (readingSpeeds.length > 0) {
+        const bestSpeed = Math.max(...readingSpeeds);
+        if (bestSpeed >= 200) {
+            achievements.push({
+                name: 'Fast Reader',
+                description: 'Best reading speed of 200 WPM or higher.',
+                icon: 'fa-rocket'
+            });
+        }
+    }
+    
+    // Add more achievements as desired
+    
+    return achievements;
+}
+
+// Export as CSV
+document.getElementById('exportCSV').addEventListener('click', exportToCSV);
+
+// Export as PDF
+document.getElementById('exportPDF').addEventListener('click', exportToPDF);
+
+function exportToCSV() {
+    const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
+    const comprehensionAccuracy = JSON.parse(localStorage.getItem('comprehensionAccuracy')) || [];
+    const totalGames = parseInt(localStorage.getItem('totalGames'), 10) || 0;
+    
+    let csvContent = 'data:text/csv;charset=utf-8,';
+    csvContent += 'Total Games Played,' + totalGames + '\n';
+    csvContent += 'Round,Reading Speed (WPM),Comprehension Accuracy (%)\n';
+    
+    readingSpeeds.forEach((speed, index) => {
+        const accuracy = comprehensionAccuracy[index] ? (comprehensionAccuracy[index] * 100).toFixed(2) : 'N/A';
+        csvContent += `${index + 1},${speed.toFixed(2)},${accuracy}\n`;
+    });
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'cozy_dash_reader_stats.csv');
+    document.body.appendChild(link); // Required for Firefox
+    
+    link.click();
+    document.body.removeChild(link);
+}
+
+function exportToPDF() {
+    // Ensure you include jsPDF library in your HTML
+    // <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    doc.setFontSize(20);
+    doc.text('Cozy Dash Reader Stats', 20, 20);
+    
+    doc.setFontSize(12);
+    const totalGames = parseInt(localStorage.getItem('totalGames'), 10) || 0;
+    doc.text(`Total Games Played: ${totalGames}`, 20, 30);
+    
+    const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
+    const comprehensionAccuracy = JSON.parse(localStorage.getItem('comprehensionAccuracy')) || [];
+    
+    doc.text('Round | Reading Speed (WPM) | Comprehension Accuracy (%)', 20, 40);
+    readingSpeeds.forEach((speed, index) => {
+        const accuracy = comprehensionAccuracy[index] ? (comprehensionAccuracy[index] * 100).toFixed(2) : 'N/A';
+        doc.text(`${index + 1} | ${speed.toFixed(2)} | ${accuracy}`, 20, 50 + index * 10);
+    });
+    
+    doc.save('cozy_dash_reader_stats.pdf');
 }
 
 // Modify submitComprehensionAnswer to update stats

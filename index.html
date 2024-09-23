@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- URL: www.readwithcozy.com-->
     <!-- Meta Tags and SEO Enhancements -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +25,10 @@
             }
         }
     </script>
+
+    <!-- Include jsPDF for PDF export functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     
 
     <!-- Stylesheets -->
@@ -156,6 +161,13 @@
             <!-- Total Rounds Played -->
             <p>Total Rounds Played: <span id="totalRounds">0</span></p>
             
+            <!-- Best and Worst Reading Speed -->
+            <div class="performance-summary">
+                <p>Best Reading Speed: <span id="bestSpeed">0</span> WPM</p>
+                <p>Worst Reading Speed: <span id="worstSpeed">0</span> WPM</p>
+                <p>Average Comprehension: <span id="averageComprehension">0</span>%</p>
+            </div>
+            
             <!-- WPM Over Time Chart -->
             <h3>Words Per Minute Over Time</h3>
             <canvas id="wpmChart"></canvas>
@@ -163,8 +175,24 @@
             <!-- Comprehension Accuracy Over Time Chart -->
             <h3>Comprehension Accuracy Over Time</h3>
             <canvas id="accuracyChart"></canvas>
+            
+            <!-- Reading Speed Distribution Chart -->
+            <h3>Reading Speed Distribution</h3>
+            <canvas id="speedDistributionChart"></canvas>
+            
+            <!-- Achievements Section -->
+            <h3>Achievements</h3>
+            <div id="achievements">
+                <!-- Badges will be dynamically inserted here -->
+            </div>
+            
+            <!-- Export Options -->
+            <h3>Export Your Stats</h3>
+            <button id="exportCSV">Export as CSV</button>
+            <button id="exportPDF">Export as PDF</button>
         </div>
     </div>
+
 
     <!-- Footer with links to Features, About, and Stats -->
     <footer>
