@@ -626,28 +626,6 @@ body.dark-mode #resetData:hover {
     background-color: #c0392b;
 }
 
-
-/* Responsive Achievements */
-@media (max-width: 768px) {
-    .performance-summary {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-/* Ensure readability on smaller screens */
-@media (max-width: 768px) {
-    .features-content h2 {
-        font-size: 24px;
-    }
-    .features-content h3 {
-        font-size: 20px;
-    }
-    .features-content p {
-        font-size: 16px;
-    }
-}
-
 /* About Modal Styling */
 .about-content {
     background-color: #fefefe;
@@ -738,6 +716,99 @@ body.dark-mode #resetData:hover {
     background-color: #2980b9;
 }
 
+/* Achievements Modal Styling */
+.achievements-content {
+    background-color: #f8f9fa; /* Light background for professionalism */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.achievements-content h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Achievements List */
+#achievementsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Individual Achievement Card */
+.achievement-card {
+    width: 150px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #ecf0f1;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Locked Achievement Styling */
+.achievement-card.locked {
+    background-color: #bdc3c7;
+    color: #7f8c8d;
+    cursor: not-allowed;
+}
+
+/* Unlocked Achievement Styling */
+.achievement-card.unlocked {
+    background-color: #1abc9c;
+    color: white;
+}
+
+/* Achievement Icon */
+.achievement-card i {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* Tooltip Styling */
+.achievement-card .tooltip {
+    visibility: hidden;
+    width: 160px;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above the card */
+    left: 50%;
+    margin-left: -80px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.achievement-card .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.75) transparent transparent transparent;
+}
+
+.achievement-card:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
 /* Ensure readability on smaller screens */
 @media (max-width: 768px) {
     .about-content h2 {
@@ -749,10 +820,17 @@ body.dark-mode #resetData:hover {
     .about-content p {
         font-size: 16px;
     }
-}
 
-/* Media Queries */
-@media (max-width: 768px) {
+    .features-content h2 {
+        font-size: 24px;
+    }
+    .features-content h3 {
+        font-size: 20px;
+    }
+    .features-content p {
+        font-size: 16px;
+    }
+
     h1 {
         font-size: 28px;
     }
@@ -763,5 +841,10 @@ body.dark-mode #resetData:hover {
     button {
         padding: 12px 25px;
         font-size: 16px;
+    }
+
+    .performance-summary {
+        flex-direction: column;
+        align-items: center;
     }
 }

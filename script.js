@@ -166,7 +166,9 @@ function finishReading() {
 
     // Show the "View Your Stats" button after the test results
     const viewStatsButton = document.getElementById('viewStatsButton');
+    const viewAchievementsButton = document.getElementById('viewAchievementsButton'); // New button
     viewStatsButton.style.display = 'inline-block';  // Make the button visible
+    viewAchievementsButton.style.display = 'inline-block'; // Make the achievements button visible
 }
 
 
@@ -526,30 +528,33 @@ function renderStats() {
 
 
 function renderAchievements() {
-    const achievementsContainer = document.getElementById('achievements');
+    const achievementsContainer = document.getElementById('achievementsList');
     achievementsContainer.innerHTML = ''; // Clear existing badges
-    
+
     const achievements = getAchievements();
-    
+
     achievements.forEach(achievement => {
-        const badge = document.createElement('div');
-        badge.className = 'badge';
-        badge.title = achievement.description;
-        
+        const card = document.createElement('div');
+        card.className = 'achievement-card';
+        card.classList.add(achievement.unlocked ? 'unlocked' : 'locked');
+
+        // Achievement Icon
         const icon = document.createElement('i');
         icon.className = `fas ${achievement.icon}`;
-        
-        const label = document.createElement('span');
-        label.textContent = achievement.name;
-        
-        badge.appendChild(icon);
-        badge.appendChild(label);
-        achievementsContainer.appendChild(badge);
-        
-        // Apply dark mode class if enabled
-        if (document.body.classList.contains('dark-mode')) {
-            badge.classList.add('dark-mode');
-        }
+        card.appendChild(icon);
+
+        // Achievement Name
+        const name = document.createElement('p');
+        name.textContent = achievement.name;
+        card.appendChild(name);
+
+        // Tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.textContent = achievement.description;
+        card.appendChild(tooltip);
+
+        achievementsContainer.appendChild(card);
     });
 }
 
@@ -558,44 +563,74 @@ function getAchievements() {
     const achievements = [];
     const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
     const totalGames = parseInt(localStorage.getItem('totalGames'), 10) || 0;
-    
-    // Example Achievements
-    if (totalGames >= 10) {
-        achievements.push({
+
+    // Define all possible achievements
+    const allAchievements = [
+        {
             name: 'Reading Novice',
-            description: 'Completed 10 reading rounds.',
-            icon: 'fa-book-reader'
-        });
-    }
-    if (totalGames >= 50) {
-        achievements.push({
+            description: 'Complete 10 reading rounds.',
+            icon: 'fa-book-reader',
+            condition: totalGames >= 10
+        },
+        {
             name: 'Reading Enthusiast',
-            description: 'Completed 50 reading rounds.',
-            icon: 'fa-user-graduate'
-        });
-    }
-    if (readingSpeeds.some(speed => speed >= 300)) {
-        achievements.push({
+            description: 'Complete 50 reading rounds.',
+            icon: 'fa-user-graduate',
+            condition: totalGames >= 50
+        },
+        {
             name: 'Speedster',
-            description: 'Achieved a reading speed of 300 WPM or higher.',
-            icon: 'fa-tachometer-alt-fast'
-        });
-    }
-    if (readingSpeeds.length > 0) {
-        const bestSpeed = Math.max(...readingSpeeds);
-        if (bestSpeed >= 200) {
-            achievements.push({
-                name: 'Fast Reader',
-                description: 'Best reading speed of 200 WPM or higher.',
-                icon: 'fa-rocket'
-            });
+            description: 'Achieve a reading speed of 300 WPM or higher.',
+            icon: 'fa-tachometer-alt-fast',
+            condition: readingSpeeds.some(speed => speed >= 300)
+        },
+        {
+            name: 'Fast Reader',
+            description: 'Best reading speed of 200 WPM or higher.',
+            icon: 'fa-rocket',
+            condition: readingSpeeds.length > 0 && Math.max(...readingSpeeds) >= 200
+        },
+        // Add more achievements as desired
+        {
+            name: 'Comprehension Champ',
+            description: 'Maintain an average comprehension accuracy of 90% or higher over 10 rounds.',
+            icon: 'fa-brain',
+            condition: (JSON.parse(localStorage.getItem('comprehensionAccuracy')) || []).reduce((a, b) => a + b, 0) / (JSON.parse(localStorage.getItem('comprehensionAccuracy')) || []).length >= 0.9
+        },
+        {
+            name: 'Consistency King',
+            description: 'Achieve at least 180 WPM in 5 consecutive rounds.',
+            icon: 'fa-crown',
+            condition: checkConsecutiveSpeeds(5, 180)
         }
+    ];
+
+    // Helper function to check consecutive speeds
+    function checkConsecutiveSpeeds(count, threshold) {
+        let consecutive = 0;
+        for (let speed of readingSpeeds) {
+            if (speed >= threshold) {
+                consecutive++;
+                if (consecutive >= count) return true;
+            } else {
+                consecutive = 0;
+            }
+        }
+        return false;
     }
-    
-    // Add more achievements as desired
-    
+
+    allAchievements.forEach(ach => {
+        achievements.push({
+            name: ach.name,
+            description: ach.description,
+            icon: ach.icon,
+            unlocked: ach.condition
+        });
+    });
+
     return achievements;
 }
+
 
 // Export as CSV
 document.getElementById('exportCSV').addEventListener('click', exportToCSV);
@@ -690,6 +725,11 @@ function submitComprehensionAnswer() {
     document.getElementById('finishButton').style.display = 'none'; // Hide the finish button here
     document.getElementById('comprehensionQuestion').style.display = 'none';
     document.getElementById('startButton').style.display = 'inline';
+
+    const viewStatsButton = document.getElementById('viewStatsButton');
+    const viewAchievementsButton = document.getElementById('viewAchievementsButton'); // New button
+    viewStatsButton.style.display = 'inline-block';  // Make the button visible
+    viewAchievementsButton.style.display = 'inline-block'; // Make the achievements button visible
 }
 
 // Modal functionality for Features
@@ -712,6 +752,25 @@ document.getElementById('closeAbout').addEventListener('click', function() {
     document.getElementById('aboutModal').style.display = 'none';
 });
 
+// Add event listener for opening Achievements modal
+document.getElementById('openAchievements').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('achievementsModal').style.display = 'block';
+    renderAchievements(); // Render the achievements when the modal is opened
+});
+
+// Add event listener for closing Achievements modal
+document.getElementById('closeAchievements').addEventListener('click', function() {
+    document.getElementById('achievementsModal').style.display = 'none';
+});
+
+// Add event listener for the "View Achievements" button
+document.getElementById('viewAchievementsButton').addEventListener('click', function() {
+    document.getElementById('achievementsModal').style.display = 'block';
+    renderAchievements(); // Call the function to render achievements
+});
+
+
 // Close modals when clicking outside of them
 window.onclick = function(event) {
     if (event.target == document.getElementById('featuresModal')) {
@@ -720,8 +779,11 @@ window.onclick = function(event) {
     if (event.target == document.getElementById('aboutModal')) {
         document.getElementById('aboutModal').style.display = 'none';
     }
-    if (event.target == document.getElementById('statsModal')) { // Add this condition
+    if (event.target == document.getElementById('statsModal')) {
         document.getElementById('statsModal').style.display = 'none';
+    }
+    if (event.target == document.getElementById('achievementsModal')) { // New condition
+        document.getElementById('achievementsModal').style.display = 'none';
     }
 }
 
@@ -861,4 +923,8 @@ window.onload = function() {
     if (savedTotalGames) {
         totalGames = parseInt(savedTotalGames, 10);
     }
+
+    // Optionally render achievements on load if needed
+    // renderAchievements();
 };
+

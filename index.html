@@ -75,8 +75,10 @@
 
         <!-- Results Display -->
         <div id="results">
-            <button id="viewStatsButton" style="display: none;">View Your Stats</button> <!-- Add the button here -->
+            <button id="viewStatsButton" style="display: none;">View Your Stats</button>
+            <button id="viewAchievementsButton" style="display: none;">View Achievements</button> <!-- New Button -->
         </div>
+
     </div>
 
     <!-- Features Modal -->
@@ -197,15 +199,27 @@
         </div>
     </div>
 
+    <!-- Achievements Modal -->
+    <div id="achievementsModal" class="modal">
+        <div class="modal-content achievements-content">
+            <span class="close" id="closeAchievements">&times;</span>
+            <h2>Achievements</h2>
+            <div id="achievementsList">
+                <!-- Achievements will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
 
 
-    <!-- Footer with links to Features, About, and Stats -->
+    <!-- Footer with links to Features, About, Stats, and Achievements -->
     <footer>
         <a href="#" id="openFeatures">Features</a> | 
         <a href="#" id="openAbout">About</a> | 
-        <a href="#" id="openStats">Stats</a>
+        <a href="#" id="openStats">Stats</a> | 
+        <a href="#" id="openAchievements">Achievements</a> <!-- New Achievements Tab -->
         <p>© 2024 Cozy Dash Reader. All rights reserved.</p>
     </footer>
+
 
     <!-- Include Chart.js for rendering graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
