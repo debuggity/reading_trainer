@@ -809,6 +809,65 @@ body.dark-mode #resetData:hover {
     opacity: 1;
 }
 
+/* Thermometer Visualization */
+.thermometer {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.thermometer-bar {
+    position: relative;
+    width: 300px;
+    height: 30px;
+    background-color: #ecf0f1;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.thermometer-fill {
+    height: 100%;
+    width: 0%; /* Will be set dynamically via JavaScript */
+    border-radius: 15px 0 0 15px;
+    transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+.thermometer-label {
+    font-size: 18px;
+    min-width: 50px;
+}
+
+/* Color Coding */
+.thermometer-fill.low {
+    background-color: #e74c3c; /* Red for poor accuracy */
+}
+
+.thermometer-fill.medium {
+    background-color: #f1c40f; /* Yellow for average accuracy */
+}
+
+.thermometer-fill.high {
+    background-color: #2ecc71; /* Green for good accuracy */
+}
+
+/* Dark Mode Adjustments */
+body.dark-mode .thermometer-bar {
+    background-color: #34495e;
+}
+
+body.dark-mode .thermometer-fill.low {
+    background-color: #c0392b;
+}
+
+body.dark-mode .thermometer-fill.medium {
+    background-color: #f39c12;
+}
+
+body.dark-mode .thermometer-fill.high {
+    background-color: #27ae60;
+}
+
 /* Ensure readability on smaller screens */
 @media (max-width: 768px) {
     .about-content h2 {

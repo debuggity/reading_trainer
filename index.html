@@ -74,7 +74,7 @@
         </div>
 
         <!-- Results Display -->
-        <div id="results">
+        <div id="results" style="display: none;">
             <button id="viewStatsButton" style="display: none;">View Your Stats</button>
             <button id="viewAchievementsButton" style="display: none;">View Achievements</button> <!-- New Button -->
         </div>
@@ -174,9 +174,20 @@
             <h3>Words Per Minute Over Time</h3>
             <canvas id="wpmChart"></canvas>
             
-            <!-- Comprehension Accuracy Over Time Chart -->
+            <!-- Remove or comment out the existing Comprehension Accuracy Chart -->
+            <!--
             <h3>Comprehension Accuracy Over Time</h3>
             <canvas id="accuracyChart"></canvas>
+            -->
+
+            <!-- Replace the Comprehension Accuracy Chart with a Thermometer -->
+            <h3>Average Comprehension Accuracy</h3>
+            <div class="thermometer">
+                <div class="thermometer-bar">
+                    <div class="thermometer-fill" id="comprehensionThermometer"></div>
+                </div>
+                <div class="thermometer-label" id="comprehensionLabel">0%</div>
+            </div>
             
             <!-- Reading Speed Distribution Chart -->
             <h3>Reading Speed Distribution</h3>

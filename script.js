@@ -164,11 +164,16 @@ function finishReading() {
 
     showComprehensionQuestion();
 
-    // Show the "View Your Stats" button after the test results
+    // Show the "View Your Stats" and "View Achievements" buttons after the test results
     const viewStatsButton = document.getElementById('viewStatsButton');
     const viewAchievementsButton = document.getElementById('viewAchievementsButton'); // New button
-    viewStatsButton.style.display = 'inline-block';  // Make the button visible
-    viewAchievementsButton.style.display = 'inline-block'; // Make the achievements button visible
+
+    if (viewStatsButton && viewAchievementsButton) { // Ensure elements exist
+        viewStatsButton.style.display = 'inline-block';  // Make the Stats button visible
+        viewAchievementsButton.style.display = 'inline-block'; // Make the Achievements button visible
+    } else {
+        console.error("View Stats or View Achievements button not found in the DOM.");
+    }
 }
 
 
@@ -298,21 +303,25 @@ function renderStats() {
     const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
     const allReadingSpeeds = JSON.parse(localStorage.getItem('allReadingSpeeds')) || [];
     const comprehensionAccuracy = JSON.parse(localStorage.getItem('comprehensionAccuracy')) || [];
-    
+    const totalGames = parseInt(localStorage.getItem('totalGames'), 10) || 0;
+
     // Display total games played
     document.getElementById('totalRounds').innerText = totalGames;
-    
+
     // Calculate Best and Worst Reading Speed
     const bestSpeed = readingSpeeds.length > 0 ? Math.max(...readingSpeeds) : 0;
     const worstSpeed = readingSpeeds.length > 0 ? Math.min(...readingSpeeds) : 0;
     document.getElementById('bestSpeed').innerText = bestSpeed.toFixed(2);
     document.getElementById('worstSpeed').innerText = worstSpeed.toFixed(2);
-    
+
     // Calculate Average Comprehension
     const averageComprehension = comprehensionAccuracy.length > 0 ? 
         ((comprehensionAccuracy.reduce((a, b) => a + b, 0) / comprehensionAccuracy.length) * 100).toFixed(2) : 0;
     document.getElementById('averageComprehension').innerText = averageComprehension;
-    
+
+    // Update Thermometer Visualization
+    updateComprehensionThermometer(averageComprehension);
+
     // Prepare data for WPM chart with round number as the x-axis
     const wpmData = readingSpeeds.map((speed, index) => ({
         x: index + 1,  // Round number
@@ -320,11 +329,8 @@ function renderStats() {
     }));
     
     // Prepare data for Comprehension Accuracy chart
-    const accuracyData = comprehensionAccuracy.map((accuracy, index) => ({
-        x: index + 1,
-        y: accuracy * 100 // Convert to percentage
-    }));
-    
+    // (Removed as we replaced it with a thermometer)
+
     // Prepare data for Speed Distribution Chart using allReadingSpeeds
     const speedBuckets = {};
     allReadingSpeeds.forEach(speed => {
@@ -333,21 +339,18 @@ function renderStats() {
     });
     const speedLabels = Object.keys(speedBuckets).sort((a, b) => a - b);
     const speedCounts = speedLabels.map(label => speedBuckets[label]);
-    
+
     // Destroy existing charts if they exist to avoid duplication
     if (window.wpmChartInstance) {
         window.wpmChartInstance.destroy();
     }
-    if (window.accuracyChartInstance) {
-        window.accuracyChartInstance.destroy();
-    }
     if (window.speedDistributionChartInstance) {
         window.speedDistributionChartInstance.destroy();
     }
-    
+
     // Calculate the average WPM for the red dotted line
     const averageWPM = getAverageSpeed();
-    
+
     // Render WPM Chart
     const wpmCtx = document.getElementById('wpmChart').getContext('2d');
     window.wpmChartInstance = new Chart(wpmCtx, {
@@ -417,65 +420,7 @@ function renderStats() {
             }
         }
     });
-    
-    // Render Comprehension Accuracy Chart
-    const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
-    window.accuracyChartInstance = new Chart(accuracyCtx, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: 'Comprehension Accuracy (%)',
-                data: accuracyData,
-                borderColor: '#e67e22',
-                backgroundColor: 'rgba(230, 126, 34, 0.2)',
-                fill: true,
-                tension: 0.4,
-                pointRadius: 5,
-                pointBackgroundColor: '#e67e22',
-                pointHoverRadius: 7,
-                pointHoverBackgroundColor: '#d35400'
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    type: 'linear',
-                    title: {
-                        display: true,
-                        text: 'Round'
-                    },
-                    ticks: {
-                        precision: 0,
-                        stepSize: 1,
-                        beginAtZero: true
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Comprehension Accuracy (%)'
-                    },
-                    beginAtZero: true,
-                    min: 0,
-                    max: 100
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return `${context.parsed.y}%`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-    
+
     // Render Speed Distribution Chart
     const speedCtx = document.getElementById('speedDistributionChart').getContext('2d');
     window.speedDistributionChartInstance = new Chart(speedCtx, {
@@ -521,11 +466,36 @@ function renderStats() {
             }
         }
     });
-    
+
     // Render Achievements
     renderAchievements();
 }
 
+function updateComprehensionThermometer(averageAccuracy) {
+    const thermometerFill = document.getElementById('comprehensionThermometer');
+    const thermometerLabel = document.getElementById('comprehensionLabel');
+    
+    // Ensure averageAccuracy is a number
+    const accuracy = parseFloat(averageAccuracy);
+    
+    // Set the width of the thermometer
+    thermometerFill.style.width = `${accuracy}%`;
+    
+    // Update the label
+    thermometerLabel.textContent = `${accuracy}%`;
+    
+    // Apply color coding based on accuracy
+    if (accuracy < 60) {
+        thermometerFill.classList.remove('medium', 'high');
+        thermometerFill.classList.add('low');
+    } else if (accuracy >= 60 && accuracy < 80) {
+        thermometerFill.classList.remove('low', 'high');
+        thermometerFill.classList.add('medium');
+    } else {
+        thermometerFill.classList.remove('low', 'medium');
+        thermometerFill.classList.add('high');
+    }
+}
 
 function renderAchievements() {
     const achievementsContainer = document.getElementById('achievementsList');
@@ -563,6 +533,7 @@ function getAchievements() {
     const achievements = [];
     const readingSpeeds = JSON.parse(localStorage.getItem('readingSpeeds')) || [];
     const totalGames = parseInt(localStorage.getItem('totalGames'), 10) || 0;
+    const comprehensionAccuracy = JSON.parse(localStorage.getItem('comprehensionAccuracy')) || [];
 
     // Define all possible achievements
     const allAchievements = [
@@ -590,19 +561,41 @@ function getAchievements() {
             icon: 'fa-rocket',
             condition: readingSpeeds.length > 0 && Math.max(...readingSpeeds) >= 200
         },
-        // Add more achievements as desired
+        // Existing achievements...
         {
             name: 'Comprehension Champ',
             description: 'Maintain an average comprehension accuracy of 90% or higher over 10 rounds.',
             icon: 'fa-brain',
-            condition: (JSON.parse(localStorage.getItem('comprehensionAccuracy')) || []).reduce((a, b) => a + b, 0) / (JSON.parse(localStorage.getItem('comprehensionAccuracy')) || []).length >= 0.9
+            condition: comprehensionAccuracy.length >= 10 && 
+                       (comprehensionAccuracy.reduce((a, b) => a + b, 0) / comprehensionAccuracy.length) >= 0.9
         },
         {
             name: 'Consistency King',
             description: 'Achieve at least 180 WPM in 5 consecutive rounds.',
             icon: 'fa-crown',
             condition: checkConsecutiveSpeeds(5, 180)
+        },
+        // *** New Achievements Start Here ***
+        {
+            name: 'Marathon Reader',
+            description: 'Complete 100 reading rounds.',
+            icon: 'fa-running',
+            condition: totalGames >= 100
+        },
+        {
+            name: 'Master Comprehender',
+            description: 'Maintain an average comprehension accuracy of 95% or higher over 20 rounds.',
+            icon: 'fa-user-secret',
+            condition: comprehensionAccuracy.length >= 20 && 
+                       (comprehensionAccuracy.reduce((a, b) => a + b, 0) / comprehensionAccuracy.length) >= 0.95
+        },
+        {
+            name: 'Ultra Speedster',
+            description: 'Achieve a reading speed of 350 WPM or higher.',
+            icon: 'fa-bolt',
+            condition: readingSpeeds.some(speed => speed >= 350)
         }
+        // *** New Achievements End Here ***
     ];
 
     // Helper function to check consecutive speeds
@@ -630,6 +623,7 @@ function getAchievements() {
 
     return achievements;
 }
+
 
 
 // Export as CSV
@@ -726,10 +720,16 @@ function submitComprehensionAnswer() {
     document.getElementById('comprehensionQuestion').style.display = 'none';
     document.getElementById('startButton').style.display = 'inline';
 
+    // Show the "View Your Stats" and "View Achievements" buttons after answering
     const viewStatsButton = document.getElementById('viewStatsButton');
     const viewAchievementsButton = document.getElementById('viewAchievementsButton'); // New button
-    viewStatsButton.style.display = 'inline-block';  // Make the button visible
-    viewAchievementsButton.style.display = 'inline-block'; // Make the achievements button visible
+
+    if (viewStatsButton && viewAchievementsButton) { // Ensure elements exist
+        viewStatsButton.style.display = 'inline-block';  // Make the Stats button visible
+        viewAchievementsButton.style.display = 'inline-block'; // Make the Achievements button visible
+    } else {
+        console.error("View Stats or View Achievements button not found in the DOM.");
+    }
 }
 
 // Modal functionality for Features
