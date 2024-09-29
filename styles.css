@@ -868,6 +868,147 @@ body.dark-mode .thermometer-fill.high {
     background-color: #27ae60;
 }
 
+/* Footer Container */
+footer {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+}
+
+/* Footer Buttons Container */
+.footer-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; /* Space between buttons */
+    margin-bottom: 15px;
+}
+
+/* Footer Link Styles */
+.footer-link {
+    position: relative;
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    background-color: #bdc3c7;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Icon Styles */
+.footer-link i {
+    font-size: 20px;
+}
+
+/* Hover Effects for All Footer Links */
+.footer-link:hover {
+    background-color: #3498db;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Prominent Footer Links (Stats and Achievements) */
+.footer-link.prominent {
+    background-color: #1abc9c;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Hover Effects for Prominent Links */
+.footer-link.prominent:hover {
+    background-color: #16a085;
+    transform: scale(1.2);
+}
+
+/* Button Label Hidden by Default */
+.footer-link .button-label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* Show Label on Hover */
+.footer-link:hover .button-label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-20px);
+}
+
+/* Tooltip Arrow */
+.footer-link .button-label::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.75) transparent transparent transparent;
+}
+
+/* Adjustments for Dark Mode */
+body.dark-mode footer {
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+body.dark-mode .footer-link {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+body.dark-mode .footer-link:hover {
+    background-color: #16a085;
+    color: #ecf0f1;
+}
+
+body.dark-mode .footer-link.prominent {
+    background-color: #27ae60;
+    color: white;
+}
+
+body.dark-mode .footer-link.prominent:hover {
+    background-color: #1e8449;
+}
+
+body.dark-mode .footer-link.prominent .button-label {
+    background-color: rgba(39, 174, 96, 0.85);
+}
+
+/* Responsive Footer Buttons */
+@media (max-width: 600px) {
+    .footer-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer-link {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .footer-link.prominent {
+        font-size: 18px;
+    }
+}
+
+
 /* Ensure readability on smaller screens */
 @media (max-width: 768px) {
     .about-content h2 {

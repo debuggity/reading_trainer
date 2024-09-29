@@ -218,12 +218,30 @@
 
     <!-- Footer with links to Features, About, Stats, and Achievements -->
     <footer>
-        <a href="#" id="openFeatures">Features</a> | 
-        <a href="#" id="openAbout">About</a> | 
-        <a href="#" id="openStats">Stats</a> | 
-        <a href="#" id="openAchievements">Achievements</a> <!-- New Achievements Tab -->
+        <div class="footer-buttons">
+            <a href="#" id="openFeatures" class="footer-link" aria-label="Features">
+                <i class="fas fa-book"></i> <!-- Updated icon to look like a notebook -->
+                <span class="button-label">Features</span>
+            </a>
+            <a href="#" id="openAbout" class="footer-link" aria-label="About">
+                <i class="fas fa-info-circle"></i>
+                <span class="button-label">About</span>
+            </a>
+            <a href="#" id="openStats" class="footer-link prominent" aria-label="Your Stats">
+                <i class="fas fa-chart-line"></i>
+                <span class="button-label">Your Stats</span>
+            </a>
+            <a href="#" id="openAchievements" class="footer-link prominent" aria-label="Achievements">
+                <i class="fas fa-trophy"></i>
+                <span class="button-label">Achievements</span>
+            </a>
+        </div>
+        <br>
         <p>© 2024 Cozy Dash Reader. All rights reserved.</p>
     </footer>
+
+
+
 
 
     <!-- Include Chart.js for rendering graphs -->
