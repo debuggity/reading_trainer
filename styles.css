@@ -995,12 +995,13 @@ body.dark-mode .footer-link.prominent .button-label {
 @media (max-width: 600px) {
 
     .footer-link {
-        padding: 12px 20px;
-        font-size: 16px;
+        margin: 0 2px; /* Further reduce spacing on smaller screens */
+        padding: 8px 10px; /* Slightly reduce padding to save space */
+        font-size: 16px; /* Reduce font size slightly for better fit */
     }
 
-    .footer-link.prominent {
-        font-size: 18px;
+    .footer-link i {
+        font-size: 16px; /* Adjust icon size for mobile */
     }
 }
 
