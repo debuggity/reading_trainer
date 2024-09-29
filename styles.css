@@ -993,10 +993,6 @@ body.dark-mode .footer-link.prominent .button-label {
 
 /* Responsive Footer Buttons */
 @media (max-width: 600px) {
-    .footer-buttons {
-        flex-direction: column;
-        gap: 15px;
-    }
 
     .footer-link {
         padding: 12px 20px;
